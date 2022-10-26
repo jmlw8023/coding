@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+</head>
+<body>
+    <h1>欢迎用户， 这是个首页</h1>
+
+    <h2>书籍内容管理系统</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>书籍IS</th>
+                <th>书籍名称</th>
+                <th>作者</th>
+                <th>价格</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value in data_dict.items() %}
+            <tr>
+                <td>{{key}}</td>
+                <td>{{value.name}}</td>
+                <td>{{value.get('author', 'none')}}</td>
+                <td>{{value.get('price', '9.999')}}</td>
+                <td>
+                    <a href="/edit?nid={{key}}">编辑</a>
+                    <!-- <a href="/del/d_key={{key}}">删除</a> -->
+                    <a href="/del?d_key={{key}}">删除</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    
+</body>
+</html>
