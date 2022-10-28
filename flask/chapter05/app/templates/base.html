@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+        {% block metas %}
+            <meta charset="utf-8">
+        {% endblock metas %}
+
+        <title>{% block title %}首页{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        {% block styles %}
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css' ) }}">
+        {% endblock styles %}
+    {% endblock head %}
+</head>
+<body>
+
+<footer>
+    {% block footer %}
+        <small> &copy; 2023 <a href="http://greyli.com" title="Written by Grey Li">jmlw</a> /
+            <a href="https://github.com/jmlw8023/coding" title="Fork me on GitHub">GitHub</a> /
+            <a href="http://helloflask.com" title="A HelloFlask project">HelloFlask</a>
+        </small>
+    {% endblock %}
+</footer>
+{% block scripts %}{% endblock %}
+</body>
+</html>
