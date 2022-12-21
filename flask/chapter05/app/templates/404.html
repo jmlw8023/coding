@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,4 +22,29 @@
         <small>&copy; 2022 <a href="https://github.com/jmlw8023/coding">GitHub</a></small>
     </footer>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ info }} Watchlist</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+</head>
+<body>
+    <h2 style="text-align: center;">
+        <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/error.jpg') }}">
+        {{ info }}
+    </h2>
+    <ul style="text-align: center;" class="movie-list">
+        <h3 >Page Not Found - 404</h3>
+            <span class="float-right">
+                <a href="{{ url_for('root') }}">Go Back Home Page</a>
+            </span>
+    </ul>
+    <footer>
+        <small>&copy; 2022 <a href="https://github.com/jmlw8023/coding">GitHub</a></small>
+    </footer>
+</body>
+>>>>>>> 3efa523ff0c2328ea326da8c6ab7d5be45143578
 </html>
