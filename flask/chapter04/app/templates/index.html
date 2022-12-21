@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+
+    <style>
+        @import url(/css/test.css);
+    </style>
+
+</head>
+<body>
+        <h1>main page</h1>
+
+        <h3>start</h3>
+
+        <!-- {% include 'form.html' %} -->
+
+        {% block content %}  {% endblock %}
+
+        <h3>end</h3>
+        
+        <p>image</p>
+        
+        <img src="/static/cat.jpg" alt="">  <!-- 不建议该种用法， 不灵活 --> 
+        <p>image</p>
+        <img src="{{ url_for('static', filename='cat.jpg') }}" alt="">
+
+
+    
+</body>
+</html>

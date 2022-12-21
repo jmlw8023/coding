@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+    <h1>in lg html </h1>
+    <h2>传参的name = {{ names }}</h2>
+    <h3>采用Python 数据类型list进行传值 {{names}}</h3>
+    <p>循环获取</p>
+    <h3>
+        {% for n in names %}
+        <li>名字：{{ n }} </li>
+        {% endfor %}
+    </h3>
+    <h4>通过函数方式进行： func = {{ func('果汁') }}</h4>
+
+{% endblock %}
+
