@@ -16,6 +16,7 @@ from pathlib import Path
 import cv2 as cv
 from PIL import Image, ImageDraw, ImageFont
 
+
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QDesktopWidget, QFileDialog, QMessageBox)
 from PyQt5.QtGui import QImage, QPixmap
 
@@ -57,7 +58,8 @@ class Detect(QMainWindow):
     def initUI(self):
 
         # self.setGeometry(300, 300, 1200, 800)
-        self.center()
+        self.ui.text_res.setReadOnly(True)  # 设置文本不可编辑
+        # self.center()
         self.setWindowTitle('YOLO 识别检测系统')
  
 
@@ -150,7 +152,8 @@ class Detect(QMainWindow):
         # except (ImportError, AssertionError):
         #     # torch = None
         #     pass
-
+        # self.result_txt = '<h3>检测结果: </h3>\n <h4>类别 | 分值</h4>\n' 
+        self.result_txt = '检测结果: \n 类别 | 分值\n' 
         if self.img_name is not None :
             output, img  = self.model.inference(self.img_name[0])
             outbox = filter_box(output, self.conf_thres, self.iou_thres)
@@ -181,6 +184,8 @@ class Detect(QMainWindow):
                         # print('=' * 15)
                         txt = '{0} {1:.2f}'.format(self.names[int(cls)], score)
                         print('====>  ', txt)
+                        # self.result_txt.append(txt)
+                        self.result_txt += txt + '\n'
                         # fontstype = ImageFont.truetype("data/myfont.ttf", 20, encoding="utf-8")
                         fontstype = ImageFont.truetype(font='data/Arial.ttf', size=20, encoding="utf-8")
                         # draw.text((top, left-25), txt, (0, 255, 0), font=fontstype)  # 绘制文本
@@ -198,7 +203,8 @@ class Detect(QMainWindow):
 
             self.ui.q_res.setPixmap(QPixmap.fromImage(self.qt_img))
             self.ui.q_res.setScaledContents(True)
-
+            # print(self.result_txt)
+            self.ui.text_res.setText(self.result_txt)
         else:
             # self.ui.btn_run.clicked.connect(self.msg_run)
             msg_box = QMessageBox.warning(self, 'Unselected image', 'please choose image!!!')
@@ -214,7 +220,7 @@ if __name__ == '__main__':
     det = Detect()
     det.show()
 
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
     
