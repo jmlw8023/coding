@@ -153,11 +153,13 @@ class Detect(QMainWindow):
         #     # torch = None
         #     pass
         # self.result_txt = '<h3>检测结果: </h3>\n <h4>类别 | 分值</h4>\n' 
-        self.result_txt = '检测结果: \n 类别 | 分值\n' 
+
         if self.img_name is not None :
-            output, img  = self.model.inference(self.img_name[0])
+            image = cv.imread(self.img_name[0])
+            output, img  = self.model.inference(image)
             outbox = filter_box(output, self.conf_thres, self.iou_thres)
             if outbox is not None and len(outbox):
+                self.result_txt = '检测结果: {} 个目标 \n 类别 | 分值\n' .format(outbox.shape[0])
                 boxes = outbox[...,:4].astype(np.int32)     #取整方便画框
                 scores = outbox[...,4]
                 classes = outbox[...,5].astype(np.int32)    #下标取整            
@@ -179,11 +181,12 @@ class Detect(QMainWindow):
                     print('The categories detected are as follows :')
                     for box, score, cls in zip(boxes, scores, classes):
                         top, left, right, bottom = box
-                        # print('-' * 15)
+                        print('-' * 15)
+                        # print(box)
                         # print(cls)
                         # print('=' * 15)
                         txt = '{0} {1:.2f}'.format(self.names[int(cls)], score)
-                        print('====>  ', txt)
+                        print('====>  ', txt, '\t ', box)
                         # self.result_txt.append(txt)
                         self.result_txt += txt + '\n'
                         # fontstype = ImageFont.truetype("data/myfont.ttf", 20, encoding="utf-8")
