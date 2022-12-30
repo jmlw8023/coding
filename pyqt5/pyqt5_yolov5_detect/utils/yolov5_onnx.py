@@ -74,7 +74,7 @@ class YOLOV5():    #yolov5 onnx推理
 
 
     def inference(self, img):
-        img=cv.imread(img)   #读取图片
+        # img=cv.imread(img)   #读取图片
 
         or_img = cv.resize(img,(640,640))
         # or_img = cv.resize(img,(640,640))
@@ -89,6 +89,16 @@ class YOLOV5():    #yolov5 onnx推理
 
 
 
+def xyxy2xywh(x):
+    # Convert nx4 boxes from [x1, y1, x2, y2] to [x, y, w, h] where xy1=top-left, xy2=bottom-right
+    y = np.copy(x)
+    y[:, 0] = (x[:, 0] + x[:, 2]) / 2  # x center
+    y[:, 1] = (x[:, 1] + x[:, 3]) / 2  # y center
+    y[:, 2] = x[:, 2] - x[:, 0]  # width
+    y[:, 3] = x[:, 3] - x[:, 1]  # height
+    return y
+
+
 def xywh2xyxy(x):
     # [x, y, w, h] to [x1, y1, x2, y2]
     y = np.copy(x)
@@ -100,15 +110,15 @@ def xywh2xyxy(x):
 
 def filter_box(org_box, conf_thres=0.5, iou_thres=0.5): #过滤掉无用的框
 
-    org_box=np.squeeze(org_box) #删除为1的维度
-    conf = org_box[..., 4] > conf_thres #删除置信度小于conf_thres的BOX
+    org_box=np.squeeze(org_box)                     #删除为1的维度
+    conf = org_box[..., 4] > conf_thres             #删除置信度小于conf_thres的BOX
     # print(conf)
     box = org_box[conf == True]
     cls_cinf = box[..., 5:]
     cls = []
     for i in range(len(cls_cinf)):
         cls.append(int(np.argmax(cls_cinf[i])))
-    all_cls = list(set(cls))     #删除重复的类别
+    all_cls = list(set(cls))                        #删除重复的类别
     output = []
     for i in range(len(all_cls)):
         curr_cls = all_cls[i]
@@ -116,13 +126,13 @@ def filter_box(org_box, conf_thres=0.5, iou_thres=0.5): #过滤掉无用的框
         curr_out_box = []
         for j in range(len(cls)):
             if cls[j] == curr_cls:
-                box[j][5] = curr_cls #将第6列元素替换为类别下标
-                curr_cls_box.append(box[j][:6])   #当前类别的BOX
+                box[j][5] = curr_cls                #将第6列元素替换为类别下标
+                curr_cls_box.append(box[j][:6])     #当前类别的BOX
         curr_cls_box = np.array(curr_cls_box)
         curr_cls_box = xywh2xyxy(curr_cls_box)
-        curr_out_box = nms(curr_cls_box,iou_thres) #经过非极大抑制后输出的BOX下标
+        curr_out_box = nms(curr_cls_box,iou_thres)  #经过非极大抑制后输出的BOX下标
         for k in curr_out_box:
-            output.append(curr_cls_box[k])  #利用下标取出非极大抑制后的BOX
+            output.append(curr_cls_box[k])          #利用下标取出非极大抑制后的BOX
     output = np.array(output)
     return output
 
