@@ -28,12 +28,17 @@ class Demo01():
             # # a = [9, -8, 8, -5, 6, 5, 5, -7, -4, -1, 7, 5, 18, 5, 13, 19, 9, -6, 7, -5]
             self.data = [13, -8, 1, 5, 9, 8, 16, 19, 18, -6, 19, 15, 1, 7, -3, -8, 2, 5, -8, 1]
         
+    def fun(self):
+        # 从0 ~ 2 中，抽取50个点 
+        x = np.linspace(0, 2, 50)
+        # 
+        plt.plot(x, x**2)
+        plt.plot(x, x**2.2, 'r')
+        plt.plot(x, x**3, 'b-')
+        plt.show()
 
-        # # 从0 ~ 2 中，抽取50个点 
-        # x = np.linspace(0, 2, 50)
-        # # 
-        # plt.plot(x, x**2)
     # @classmethod
+    # 通过numpy随机产生整数，之后进行统计bincount 每个数值出现的结果
     def test(self):
    
         x = np.arange(len(self.data))
@@ -76,4 +81,5 @@ class Demo01():
 if __name__ == '__main__':
     
     d = Demo01()
-    d.test()
+    # d.test()
+    d.fun()
