@@ -43,6 +43,34 @@ class OperationDatasets():
         class_names = [c.strip() for c in class_names]
         return class_names, len(class_names)
 
+    def xml_msg_dict(self, one_xml_path: str , shuffix='.xml') -> dict:
+        one_xml_path = os.path.join(self.xml_path, one_xml_path)
+        if os.path.isfile(one_xml_path) and  one_xml_path.endswith(shuffix):
+            file = open(one_xml_path, encoding='utf-8')
+            tree = ET.parse(file)
+            root = tree.getroot()
+
+            # obj = defaultdict(dict)
+            obj_dict = defaultdict('object', None)
+            print(obj_dict)
+            for obj in root.iter('object'):
+                temp_list = []
+                name = obj.find('name')
+                xmin = obj.find('xmin')
+                ymin = obj.find('ymin')
+                xmax = obj.find('xmax')
+                ymax = obj.find('ymax')
+                temp_list.append(name, xmin, ymin, xmax, ymax)
+                obj_dict.setdefault(temp_list)
+                print(temp_list)
+                print('-' * 15)
+
+            print(obj_dict)
+
+
+        else:
+            print('error message: >>>-------------please input xml file -----------------')
+
     #-------------------------------------------------------#
     #   统计目标数量
     #-------------------------------------------------------#
@@ -175,9 +203,11 @@ def create_datasets_file(xml_path, file_id, save_path, ):
 
 
 
-test = OperationDatasets(root_path=r'E:/hhh/yan/paper/datasets', classes_path=r'classes/pigeon_classes.txt')
-test.dataset_statistics()
-test.draw_datasets()
+# test = OperationDatasets(root_path=r'E:/hhh/yan/paper/datasets', classes_path=r'classes/pigeon_classes.txt')
+# # test.dataset_statistics()
+# # test.draw_datasets()
+# file = '1100059.xml'
+# test.xml_msg_dict(file)
 
 # # 指定数据集路径
 # root_path = r'E:\hhh\yan\paper\datasets'
@@ -225,23 +255,27 @@ test.draw_datasets()
 
 
 
-def rename_file(path, shuffix):
+def rename_file(path, shuffix='.png'):
     temp = []
+    num = 0
     for file in os.listdir(path):
         if os.path.isfile(os.path.join(path, file)):
             if file.endswith(shuffix):
                 file_name, extension =  os.path.splitext(file)
                 temp.append(file_name)
-                new_name = 'hf2-' + file[4:]
+                num += 1
+                new_name = 'result_' + str(num).zfill(5) + shuffix
                 print(new_name)
-                # os.rename(os.path.join(path, file), os.path.join(path, new_name))
+                os.rename(os.path.join(path, file), os.path.join(path, new_name))
                 print(os.path.join(path, file), '-->' , os.path.join(path, new_name))
     print("finish!!")
     return temp
 
-# root_path = r'E:\w\su\hb_B'
+root_path = r'E:\w\qun\datasets\results'
 # xml_path = os.path.join(root_path, 'annotations')
 # img_path = os.path.join(root_path, 'photos')
+rename_file(root_path)
+
 
 # imgs = rename_file(img_path, shuffix='jpg')
 # xmls = rename_file(xml_path, shuffix='xml')
