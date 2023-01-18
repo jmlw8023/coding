@@ -18,16 +18,28 @@ import cv2 as cv
 from PIL import Image, ImageDraw, ImageFont
 
 
+# 没有文件夹就会生成文件夹
+def mk_dir(folder_path):
+    print(folder_path)
+    folder_path = os.path.abspath(folder_path)
+    assert os.path.isdir(os.path.dirname(folder_path)), 'Please input folder dir!!'
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+        print('create {} success!!'.format(folder_path))
 
-
+# 改变xml文件中信息内容（类别的名称），并绘制相关信息到图片中
 def change_xml_file_name(root_path, xml_file, color=[0, 255, 200], img=None, target_suffix='.xml'):
     import xml.etree.ElementTree as ET 
     # print('start')
+
+    img_shuffix = '.jpg'
     if xml_file.endswith(target_suffix):
         file_name = xml_file.split('.')[0]
-        img_path = os.path.join(root_path, 'res', file_name + '.png')
-        save_img_path = os.path.join(root_path, 'results', file_name + '.png')
+        img_path = os.path.join(root_path, 'images', file_name + img_shuffix)
+        save_img_path = os.path.join(root_path, 'results', file_name + img_shuffix)
         txt_file_path = os.path.join(root_path, 'results/txt', file_name + '.txt')
+        mk_dir(os.path.join(root_path, 'results'))
+        mk_dir(os.path.join(root_path, 'results/txt'))
 
     
     if img_path is not None:
@@ -51,12 +63,13 @@ def change_xml_file_name(root_path, xml_file, color=[0, 255, 200], img=None, tar
     # jpg_name = xml_name + '.jpg'
 
     # xml文件路径
-    xml_path = os.path.join(root_path, 'Annotation', xml_file)
+    xml_path = os.path.join(root_path, 'Annotations', xml_file)
 
     # 存储xml文件的路径
-    save_xml_path = os.path.join(os.path.dirname(root_path), 'Annotation' , xml_file)
+    save_xml_path = os.path.join(os.path.dirname(root_path), 'Annotations' , xml_file)
     # 创建根节点
     tree = ET.parse(xml_path)
+    # tree = ET.parse(os.path.abspath(xml_path))
     root = tree.getroot()
     # 查找xml中第一层 key为filename的文本value内容
     # filename = root.find('filename').text
@@ -129,7 +142,7 @@ def change_xml_file_name(root_path, xml_file, color=[0, 255, 200], img=None, tar
         if (isinstance(img, np.ndarray)):  #判断是否OpenCV图片类型
             img = Image.fromarray(cv.cvtColor(img, cv.COLOR_BGR2RGB))
             draw = ImageDraw.Draw(img)    # 创建绘制图像   
-            fontstype = ImageFont.truetype(font=r'myfont.ttf', size=20, encoding="utf-8")
+            fontstype = ImageFont.truetype(font=os.path.join(root_path, 'myfont.ttf'), size=20, encoding="utf-8")
             draw.text((top, left - 25), txt, (0, 255, 0), font=fontstype)  # 绘制文本
             # draw.text((right - 40, bottom - left - 10), name, (0, 255, 0), font=fontstype)  # 绘制文本
             # draw.text((top+25, left-25), name, tuple(color), font=fontstype)  # 绘制文本
@@ -151,9 +164,12 @@ def change_xml_file_name(root_path, xml_file, color=[0, 255, 200], img=None, tar
     if (isinstance(img, np.ndarray)):  #判断是否OpenCV图片类型
         img = Image.fromarray(cv.cvtColor(img, cv.COLOR_BGR2RGB))
         draw = ImageDraw.Draw(img)    # 创建绘制图像   
-        fontstype = ImageFont.truetype(font=r'myfont.ttf', size=20, encoding="utf-8")
-        draw.text((w - 260, 25), info, (255, 255, 0), font=fontstype)  # 绘制文本
-        draw.text((w - 260, 50), conext, (255, 10, 0), font=fontstype)  # 绘制文本
+        fontstype = ImageFont.truetype(font=os.path.join(root_path, 'myfont.ttf'), size=20, encoding="utf-8")
+        # draw.text((w - 260, 25), info, (255, 255, 0), font=fontstype)  # 绘制文本到右上角
+        # draw.text((w - 260, 50), conext, (255, 10, 0), font=fontstype)  # 绘制文本到右上角
+
+        draw.text((10, 25), info, (255, 255, 0), font=fontstype)  # 绘制文本到左上角
+        draw.text((10, 50), conext, (255, 10, 0), font=fontstype)  # 绘制文本到左上角
         img = cv.cvtColor(np.asarray(img), cv.COLOR_RGB2BGR)
 
     # plt.savefig(save_img_path, dip=300)
@@ -182,7 +198,7 @@ def draw_txt_2_img(img, txt_data, box_data):
         image = cv.cvtColor(np.asarray(img), cv.COLOR_RGB2BGR)
 
 
-#画框到单张图片中
+#绘制文字到单张图片中
 def draw_box_2_img(image, box_data, cls, score):  
     top, left, right, bottom = box_data
     if (isinstance(image, np.ndarray)):  #判断是否OpenCV图片类型
@@ -192,36 +208,31 @@ def draw_box_2_img(image, box_data, cls, score):
         fontstype = ImageFont.truetype("myfont.ttf", 20, encoding="utf-8")
         # print('class: {}, score: {}'.format(CLASSES[cl], score))
         # print(f' cl ---------- {cl}')
-        draw.text((top, left-25), txt, (125, 255, 0), font=fontstype)  # 绘制文本
+        # draw.text((top, left-25), txt, (125, 255, 0), font=fontstype)  # 绘制文本在右上角
+        draw.text((top, right-25), txt, (125, 255, 0), font=fontstype)  # 绘制文本在右上角
         image = cv.cvtColor(np.asarray(img), cv.COLOR_RGB2BGR)
 
 
 
 
+# # 数据文件路径
+root_path = r'./data'
+# # 测试demo
+img = r'./data/images/bus.jpg'
+# xml = r'./data/Annotations/bus.xml'
 
+# 通过单张图片进行测试
+file_xml = 'zidane.xml'
 
-root_path = r'E:\w\qun\datasets'
+change_xml_file_name(root_path, file_xml)
 
-# for name in os.listdir(root_path):
-#     img_path = os.path.join(root_path, 'results', name)
-#     # print(img_path)
-#     img = cv.imread(img_path)
-
-
-img = r'E:\w\qun\datasets\results\result_00020.png'
-
-xml = r'E:\w\qun\datasets\Annotation\trucks_00003.xml'
-
-# root_folder = os.path.dirname(xml)
-root_folder, file_xml = os.path.dirname(xml), 'trucks_00002.xml'
-# print(root_folder, file_xml)
-
-# change_xml_file_name(root_folder, file_xml)
-
+# 随机获取RGB（0~255）范围内的元素值
 # color = [random.randint(0, 255) for _ in range(3)]
 # print(color)
-for xml_file in os.listdir(root_folder):
-    # print(xml_file)
-    change_xml_file_name(root_path, xml_file)
+
+# 整个目录中的xml文件进行
+# for xml_file in os.listdir(root_folder):
+#     # print(xml_file)
+#     change_xml_file_name(root_path, xml_file)
 
 
