@@ -5,7 +5,7 @@
 @Author  :   jolly 
 @Version :   python3.8
 @Contact :   jmlw8023@163.com
-@Reference_Linking  :
+@Reference_Linking  : https://github.com/jmlw8023/coding
 '''
 # 通过random、numpy 等模块进行随机数生成
 
