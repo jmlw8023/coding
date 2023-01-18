@@ -33,30 +33,40 @@ def change_xml_file_name(root_path, xml_file, color=[0, 255, 200], img=None, tar
     if img_path is not None:
         img = cv.imread(img_path)
     
+    else:
+        assert 'please input image path'
+    
     h, w, dim = img.shape
-    # print(img.shape)
 
+    # 生成随机颜色
     color = [random.randint(0, 255) for _ in range(3)]
+    # 划线的粗细大小
     line_thickness = round(0.0004 * (img.shape[0] + img.shape[1]) / 2) + 1  # line/font thickness
 
-
+    # 文件不是 target_suffix （.xml）结尾的就会报错
     assert xml_file.endswith(target_suffix), f'please input {target_suffix} file!!'
     # xml_name = xml_file.split('/')[-1]
     # print(xml_name)
     # xml_name, _ = os.path.splitext(xml_name)
     # jpg_name = xml_name + '.jpg'
 
+    # xml文件路径
     xml_path = os.path.join(root_path, 'Annotation', xml_file)
 
+    # 存储xml文件的路径
     save_xml_path = os.path.join(os.path.dirname(root_path), 'Annotation' , xml_file)
+    # 创建根节点
     tree = ET.parse(xml_path)
     root = tree.getroot()
-    
-    filename = root.find('filename').text
+    # 查找xml中第一层 key为filename的文本value内容
+    # filename = root.find('filename').text
     # print(filename)
     
+    # 存储的类别
     cls_name = []
+    # 绘制显示中文字体的内容
     conext = ''
+    # 保留原类别名称（英文）
     txt_context = ''
     fag = False
     for obj in root.iter('object'):
@@ -69,24 +79,27 @@ def change_xml_file_name(root_path, xml_file, color=[0, 255, 200], img=None, tar
         #     obj.find('name').text = 'dump_truck'
         #     fag = True
 
-
+        # 查询根节点 object 下的次一层 'bndbox'
         box = obj.find('bndbox')
+        # bndbox 层之下的信息内容
         xmin = box.find('xmin').text
         ymin = box.find('ymin').text
         xmax = box.find('xmax').text
         ymax = box.find('ymax').text
         # temp_list.append(name, xmin, ymin, xmax, ymax)
         # print(name, xmin, ymin, xmax, ymax)
+
+        # 从string 类型转为int 类型
         top, left, right, bottom = int(xmin), int(ymin), int(xmax), int(ymax)
+        # 采用cv的rectangle 进行绘制矩形框
         cv.rectangle(img, (int(top), int(left)), (int(right), int(bottom)), color, thickness=line_thickness, lineType=cv.LINE_AA)    # filled
 
+        # 随机生成指定范围的分值
         score = round(np.random.uniform(0.6, 0.92), 3)
         # txt = name + '  {}'.format(score)
 
         txt_context += name + '\t {} \n'.format(score) 
 
-
- 
 
         if name == 'person':
             conext += '人  {}\n'.format(score)
