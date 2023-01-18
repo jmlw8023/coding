@@ -1,4 +1,4 @@
-person	 0.907 
-person	 0.761 
-tie	 0.85 
-tie	 0.727 
+person	 0.659 
+person	 0.747 
+tie	 0.743 
+tie	 0.871 
