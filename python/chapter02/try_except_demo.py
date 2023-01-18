@@ -38,7 +38,7 @@
 
 
 
-
+# 文件内容读取
 def test02(file='data.txt'):
     import time
     # 一次性读取整个文件内容
@@ -46,20 +46,20 @@ def test02(file='data.txt'):
         print(f.read())
 
     # 通过for-in循环逐行读取
-    with open('致橡树.txt', mode='r') as f:
+    with open(file, mode='r') as f:
         for line in f:
             print(line, end='')
             time.sleep(0.5)
     print()
 
     # 读取文件按行读取到列表中
-    with open('致橡树.txt') as f:
+    with open(file) as f:
         lines = f.readlines()
     print(lines)
 
 
 
-
+# 测试文件读取异常处理
 def test(file='data.txt'):
     f = None
 
