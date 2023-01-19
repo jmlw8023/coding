@@ -20,24 +20,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # 文件内容读取
 def test02(file='data.txt'):
     import time
