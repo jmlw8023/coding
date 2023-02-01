@@ -2,6 +2,6 @@ __pycache__/
 weights/
 images/
 results/
-build-demo01-Desktop_Qt_5_14_2_MinGW_64_bit-Debug/
+build-*/
 *.pro.user
 .gitignore
