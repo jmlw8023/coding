@@ -5,3 +5,5 @@ results/
 build-*/
 *.pro.user
 .gitignore
+*.txt.*
+
