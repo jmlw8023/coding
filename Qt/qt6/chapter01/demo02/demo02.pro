@@ -26,3 +26,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+
+#win32{
+#    QMAKE_CXXFLAGS += /source-charset:utf-8 /execution-charset:utf-8
+#}

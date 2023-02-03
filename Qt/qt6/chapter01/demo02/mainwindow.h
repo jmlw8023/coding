@@ -21,4 +21,15 @@ private slots:
 private:
     Ui::MainWindow *ui;
 };
+
+
+
+//class QTimer;
+
+
+
+
+
+
+
 #endif // MAINWINDOW_H

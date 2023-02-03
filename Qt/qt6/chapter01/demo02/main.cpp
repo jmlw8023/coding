@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "logindialog.h"
+//#include "logindialog.h"
 
 
 #include <QApplication>
