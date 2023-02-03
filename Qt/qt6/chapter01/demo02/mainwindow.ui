@@ -14,76 +14,11 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="login_btn">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>300</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>登录</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>110</y>
-      <width>161</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>你好啊，Welcome to Qt!</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="exit_btn">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>300</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>退出</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>180</y>
-      <width>41</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>用户</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>230</y>
-      <width>41</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>密码</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="userlineEdit">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>190</y>
+      <x>290</x>
+      <y>180</y>
       <width>131</width>
       <height>20</height>
      </rect>
@@ -92,11 +27,76 @@
    <widget class="QLineEdit" name="pwdlineEdit">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>240</y>
+      <x>290</x>
+      <y>230</y>
       <width>131</width>
       <height>20</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exit_btn">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>290</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>退出</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="login_btn">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>290</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>登录</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>170</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>用户</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>100</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>你好啊，Welcome to Qt!</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>220</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>密码</string>
     </property>
    </widget>
   </widget>
@@ -106,7 +106,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_F">
@@ -114,17 +114,33 @@
      <string>新建(&amp;F)</string>
     </property>
     <addaction name="action_N"/>
+    <addaction name="action_P"/>
    </widget>
    <addaction name="menu_F"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_N">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/images/mylogo.jpg</normaloff>:/images/mylogo.jpg</iconset>
+   </property>
    <property name="text">
     <string>文件(&amp;N)</string>
    </property>
   </action>
+  <action name="action_P">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/images/favicon.ico</normaloff>:/images/favicon.ico</iconset>
+   </property>
+   <property name="text">
+    <string>项目(&amp;P)</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>exit_btn</sender>
@@ -133,8 +149,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>307</x>
-     <y>334</y>
+     <x>397</x>
+     <y>323</y>
     </hint>
     <hint type="destinationlabel">
      <x>399</x>

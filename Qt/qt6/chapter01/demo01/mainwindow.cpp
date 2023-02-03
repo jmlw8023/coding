@@ -13,8 +13,3 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-void MainWindow::on_login_btn_clicked()
-{
-
-}
