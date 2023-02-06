@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMouseEvent>
+#include <QPushButton>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,11 +17,21 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+protected:
+    // 鼠标按下
+    void mousePressEvent(QMouseEvent *e);
+    // 鼠标移动
+    void mouseMoveEvent(QMouseEvent *e);
+    // 鼠标释放
+    void mouseReleaseEvent(QMouseEvent *e);
+
 private slots:
     void on_login_btn_clicked();
 
 private:
     Ui::MainWindow *ui;
+    QPushButton *btClose;
+    QPoint last;
 };
 
 

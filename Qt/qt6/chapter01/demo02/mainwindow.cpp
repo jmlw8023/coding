@@ -13,6 +13,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     this->setWindowTitle("Qt6窗口程序");
+    // 窗体的图标
+    this->setWindowIcon(QIcon(":/images/mylogo.jpg"));
+
+    // 去掉标题栏
+//    this->setWindowFlags(Qt::FramelessWindowHint);
+
+    // 移动窗口显示位置
+    this->move(550, 350);
+    // 窗口背景颜色
+//     this->setStyleSheet("background:blue");
+
+
 
     // 创建一个QLabel控件
     QLabel *label = new QLabel(this);
@@ -37,5 +49,33 @@ void MainWindow::on_login_btn_clicked()
     msgBox.information(this, QString::fromLocal8Bit("login page"), QStringLiteral("登录的消息对话框~~"));
 //    msgBox.exec();
     qDebug() << "be click!!" ;
+}
+
+
+
+// 鼠标按下
+void MainWindow::mousePressEvent(QMouseEvent *e)
+{
+//    e->globalPosition();
+    if(e->button() == Qt::LeftButton)
+    {
+        qDebug() << "left button" ;
+    }
+    else if(e->button() == Qt::RightButton)
+    {
+        qDebug() << "right button";
+
+    }
+}
+// 鼠标移动
+void MainWindow::mouseMoveEvent(QMouseEvent *e)
+{
+
+
+}
+// 鼠标释放
+void MainWindow::mouseReleaseEvent(QMouseEvent *e)
+{
+
 }
 
