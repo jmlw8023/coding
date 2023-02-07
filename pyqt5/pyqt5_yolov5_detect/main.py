@@ -8,15 +8,17 @@
 '''
 
 # import packets
-import os, sys
-import numpy as np
+import os
+import sys
+import time
 import random
+import numpy as np
 from pathlib import Path
 
 import cv2 as cv
 from PIL import Image, ImageDraw, ImageFont
 
-
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QDesktopWidget, QFileDialog, QMessageBox)
 from PyQt5.QtGui import QImage, QPixmap
 
@@ -27,6 +29,7 @@ if str(ROOT) not in sys.path:
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 from ui.detect_GUI import Ui_MainWindow
+from ui.login_GUI import Ui_Login_win
 from utils.yolov5_onnx import YOLOV5, filter_box
 
 
@@ -62,14 +65,14 @@ class Detect(QMainWindow):
         # self.center()
         self.setWindowTitle('YOLO 识别检测系统')
  
-
+    # 
     def center(self):
         # 窗口大小
         screen = QDesktopWidget().screenGeometry()
         size = self.geometry()
         # 本窗体运动
         self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
-
+    # 
     def initDir(self):
         if not os.path.exists(os.path.join(ROOT, 'data')):
             os.makedirs(os.path.join(ROOT, 'data'))
@@ -77,7 +80,7 @@ class Detect(QMainWindow):
             os.makedirs(os.path.join(ROOT, 'results'))
         if not os.path.exists(os.path.join(ROOT, 'weights')):
             os.makedirs(os.path.join(ROOT, 'weights'))
-
+    # 
     def get_classes(self, name_file='data/coco.names'):
         with open(name_file, 'r', encoding='utf-8') as f:
             classes = []
@@ -85,13 +88,28 @@ class Detect(QMainWindow):
                 name = name.strip()
                 classes.append(name)
             return classes
-
+    # 
     def init_signal_solt(self):
         self.ui.btn_img.clicked.connect(self.image_show)
         self.ui.btn_weight.clicked.connect(self.weight_choose)
+        # t_begin = time.time()
         self.ui.btn_run.clicked.connect(self.run)
         self.ui.btn_cls.clicked.connect(self.classes_choose)
+        self.ui.btn_video.clicked.connect(self.video_choose)
+        self.ui.exit_pushButton.clicked.connect(self.close_win)
+    
+    def close_win(self):
+        mgs_box = QMessageBox.question(
+            None, '提示信息', '是否真的退出检测系统！',
+            QMessageBox.Yes |
+            QMessageBox.No 
+        )
 
+        if mgs_box == QMessageBox.Yes:
+            self.close()
+        elif mgs_box == QMessageBox.No:
+            pass
+    # 
     def image_show(self):
         print('open image ---> ')
         self.img_name = QFileDialog.getOpenFileName(
@@ -106,7 +124,7 @@ class Detect(QMainWindow):
         else:
             pass
 
-
+    # 
     def weight_choose(self):
 
         self.weight_file = QFileDialog.getOpenFileName(
@@ -119,7 +137,7 @@ class Detect(QMainWindow):
             self.model = YOLOV5(self.weight)
         else:
             pass
-
+    # 
     def classes_choose(self):
         self.classes_file = QFileDialog.getOpenFileName(
             self, '选择类别文件', './data', '*.names;;*.txt;;All Files(*)'
@@ -130,6 +148,18 @@ class Detect(QMainWindow):
             self.classes_path = self.classes_file[0]
             self.names = self.get_classes(self.classes_path)
             print(self.names)
+        else:
+            pass
+    # 
+    def video_choose(self):
+        self.video_file = QFileDialog.getOpenFileName(
+            self, '选择视频文件', './images', '*.mp4;;*.flv;;*.avi;;All Files(*)'
+        )
+
+        if self.video_file[0] is not None and len(self.video_file[0]):
+            print('open classes file ---> ', self.video_file[0])
+            self.video_path = self.video_file[0]
+            print(self.video_file)
         else:
             pass
     
@@ -154,12 +184,15 @@ class Detect(QMainWindow):
         #     pass
         # self.result_txt = '<h3>检测结果: </h3>\n <h4>类别 | 分值</h4>\n' 
 
+        self.t_start = time.time()
         if self.img_name is not None :
             image = cv.imread(self.img_name[0])
             output, img  = self.model.inference(image)
+            self.t_infer = time.time()
             outbox = filter_box(output, self.conf_thres, self.iou_thres)
+            self.t_nms = time.time()
             if outbox is not None and len(outbox):
-                self.result_txt = '检测结果: {} 个目标 \n 类别 | 分值\n' .format(outbox.shape[0])
+                self.result_txt = '检测结果:{}个目标 \n 类别 | 分值\n' .format(outbox.shape[0])
                 boxes = outbox[...,:4].astype(np.int32)     #取整方便画框
                 scores = outbox[...,4]
                 classes = outbox[...,5].astype(np.int32)    #下标取整            
@@ -212,6 +245,91 @@ class Detect(QMainWindow):
             # self.ui.btn_run.clicked.connect(self.msg_run)
             msg_box = QMessageBox.warning(self, 'Unselected image', 'please choose image!!!')
             # print(msg_box)
+        
+        self.t_end = time.time()
+
+
+        time_context = "推理时间:{:.2f}ms \nNMS时间:{:.2f}ms \n总运行时间:{:.2f}ms.".format((self.t_infer-self.t_start)*1000, (self.t_nms-self.t_infer)*1000, (self.t_end-self.t_start)*1000)
+        print(time_context)
+        self.ui.time_label.setText(time_context)
+
+
+
+
+
+
+
+
+
+class Login_win(QMainWindow):
+    def __init__(self) -> None:
+        super().__init__()
+
+        self.ui = Ui_Login_win()
+        self.ui.setupUi(self)
+
+        self.initUI()
+        self.init_signal_solt()
+
+
+    def initUI(self):
+        self.set_button_title()
+
+    def init_signal_solt(self):
+       
+        self.ui.btn_exit.clicked.connect(self.close_win)
+        self.ui.btn_login.clicked.connect(self.show_main_win)
+
+
+    def set_button_title(self):
+        img_name = r'./images/2.jpeg'
+        img_name_path = r'./images/pigeon/09171200302.jpg'
+        # 获取窗口大小
+        # screen = QDesktopWidget().screenGeometry()
+        # size = self.geometry()
+        # 本窗体运动
+        # self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
+
+        # 标题
+        self.ui.title_label.setText('基于YOLO的智能检测系统')
+        # 文本居中
+        self.ui.title_label.setAlignment(Qt.AlignCenter)
+        # 文本中使用图片背景
+        # self.ui.title_label.setStyleSheet("border-image:url({})".format(img_name))
+        # 文本背景颜色
+        self.ui.title_label.setStyleSheet('background-color: rgb(25, 151, 30)')
+        self.ui.btn_exit.setStyleSheet('background-color: rgb(25, 151, 30)')
+        self.ui.btn_login.setStyleSheet('background-color: rgb(25, 151, 30)')
+        # 
+        self.ui.bg_img_label.setScaledContents(True)
+        # 加载图片
+        img = QPixmap(img_name).scaled(self.ui.bg_img_label.width(), self.ui.bg_img_label.height())
+        self.ui.bg_img_label.setPixmap(img)
+
+
+        
+    
+    def show_main_win(self):
+        self.m_win = Detect()
+        self.m_win.show()
+    
+    def close_win(self):
+        mgs_box = QMessageBox.question(
+            None, '提示信息', '是否真的退出系统！',
+            QMessageBox.Yes |
+            QMessageBox.No 
+        )
+
+        if mgs_box == QMessageBox.Yes:
+            self.close()
+        elif mgs_box == QMessageBox.No:
+            pass
+
+    def info_print(self):
+        print('打印信息~~~~~!!!')
+        
+
+
 
 
 
@@ -220,8 +338,13 @@ class Detect(QMainWindow):
 if __name__ == '__main__':
     
     app = QApplication(sys.argv)
-    det = Detect()
-    det.show()
+    # det = Detect()
+    # det.show()
+    # main_win = Detect()
+    login_win = Login_win()
+
+    login_win.show()
+
 
     sys.exit(app.exec())
 

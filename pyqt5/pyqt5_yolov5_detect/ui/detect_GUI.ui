@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1033</width>
-    <height>600</height>
+    <width>1042</width>
+    <height>594</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,8 +26,14 @@
     <layout class="QVBoxLayout" name="vl_pre">
      <item>
       <widget class="QLabel" name="q_pre">
+       <property name="font">
+        <font>
+         <family>黑体</family>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
        <property name="text">
-        <string/>
+        <string>  第1步 请选择图像或视频进行检测</string>
        </property>
       </widget>
      </item>
@@ -51,6 +57,12 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QPushButton" name="btn_weight">
+          <property name="font">
+           <font>
+            <family>楷体</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>选择权重</string>
           </property>
@@ -58,6 +70,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="btn_cls">
+          <property name="font">
+           <font>
+            <family>楷体</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>类别文件</string>
           </property>
@@ -65,6 +83,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="btn_img">
+          <property name="font">
+           <font>
+            <family>楷体</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>选择图片</string>
           </property>
@@ -72,6 +96,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="btn_video">
+          <property name="font">
+           <font>
+            <family>楷体</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>选择视频</string>
           </property>
@@ -79,6 +109,14 @@
         </item>
         <item>
          <widget class="QPushButton" name="btn_run">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
            <string>检测</string>
           </property>
@@ -101,8 +139,14 @@
     <layout class="QVBoxLayout" name="vl_res">
      <item>
       <widget class="QLabel" name="q_res">
+       <property name="font">
+        <font>
+         <family>黑体</family>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
        <property name="text">
-        <string/>
+        <string>       第2步 请点击检测按钮</string>
        </property>
       </widget>
      </item>
@@ -111,11 +155,17 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>630</x>
-      <y>540</y>
-      <width>54</width>
-      <height>12</height>
+      <x>600</x>
+      <y>530</y>
+      <width>101</width>
+      <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>黑体</family>
+      <pointsize>16</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>检测结果</string>
@@ -125,10 +175,16 @@
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>540</y>
+      <y>530</y>
       <width>54</width>
-      <height>12</height>
+      <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>黑体</family>
+      <pointsize>16</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>原图</string>
@@ -138,9 +194,9 @@
     <property name="geometry">
      <rect>
       <x>860</x>
-      <y>220</y>
+      <y>200</y>
       <width>171</width>
-      <height>311</height>
+      <height>231</height>
      </rect>
     </property>
     <property name="title">
@@ -148,9 +204,74 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QTextEdit" name="text_res"/>
+      <widget class="QTextEdit" name="text_res">
+       <property name="font">
+        <font>
+         <family>黑体</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="html">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'黑体'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; dir='rtl' style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'SimSun'; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; dir='rtl' style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'SimSun'; font-size:12pt; vertical-align:super;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; dir='rtl' style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'SimSun'; font-size:12pt; vertical-align:super;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; dir='rtl' style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'SimSun'; font-size:12pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; dir='rtl' style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'SimSun'; font-size:12pt;&quot;&gt;检测结果&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>430</y>
+      <width>171</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QLabel" name="time_label">
+       <property name="font">
+        <font>
+         <family>黑体</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>结果运行时间</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="exit_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>500</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>楷体</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>退出检测系统</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -158,7 +279,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1033</width>
+     <width>1042</width>
      <height>23</height>
     </rect>
    </property>
