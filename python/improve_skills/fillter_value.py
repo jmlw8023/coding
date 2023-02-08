@@ -32,7 +32,7 @@ def demo_list():
     # print(res_iter) # 迭代器对象
     print(res_list)
 
-
+# 字典对象某值进行排序
 def demo_dict():
     # s = str('num').zfill()
     d_dict = {'teacher%02d' % x : np.random.randint(60, 100) for x in range(1, 21)}
@@ -48,7 +48,7 @@ def demo_dict():
     res_dict_ = dict(res_dict_iter)
     print(res_dict_)
 
-
+# tuple 对象的另一种表示
 def demo_tuple():
     # 内置方法，进行键值提取
     from collections import namedtuple
