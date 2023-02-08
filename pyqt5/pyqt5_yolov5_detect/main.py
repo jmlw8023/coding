@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QDesktopWidget, QFileDialog, QMessageBox)
-from PyQt5.QtGui import QImage, QPixmap
+from PyQt5.QtGui import QImage, QPixmap, QPalette, QBrush
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOU root directory
@@ -301,10 +301,17 @@ class Login_win(QMainWindow):
         self.ui.btn_exit.setStyleSheet('background-color: rgb(25, 151, 30)')
         self.ui.btn_login.setStyleSheet('background-color: rgb(25, 151, 30)')
         # 
-        self.ui.bg_img_label.setScaledContents(True)
-        # 加载图片
-        img = QPixmap(img_name).scaled(self.ui.bg_img_label.width(), self.ui.bg_img_label.height())
-        self.ui.bg_img_label.setPixmap(img)
+        # self.ui.bg_img_label.setScaledContents(True)
+        # # 加载图片
+        # img = QPixmap(img_name).scaled(self.ui.bg_img_label.width(), self.ui.bg_img_label.height())
+        # self.ui.bg_img_label.setPixmap(img)
+
+        # 设置背景图
+        palettle = QPalette()
+        palettle.setBrush(self.backgroundRole(), QBrush(QPixmap(img_name)))
+        self.setPalette(palettle)
+        self.setAutoFillBackground(True)
+
 
 
         
