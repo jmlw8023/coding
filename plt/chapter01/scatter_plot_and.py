@@ -73,7 +73,7 @@ def plot_demo():
     ax[1].legend(loc=4)               # 右下
     # ax[1].legend(loc=10) # 居中
 
-    plt.show()
+    # plt.show()
 
 # 柱状图例子
 def bar_demo():
@@ -160,14 +160,17 @@ def bar_demo():
     plt.tight_layout()
     # plt.legend()
 
-    plt.show()
+    # plt.show()
 
 
 
 def main():
 
-    # plot_demo()
+    plot_demo()
     bar_demo()
+    # 两个不同函数的图，同时展示
+
+    plt.show()
     
 
 
