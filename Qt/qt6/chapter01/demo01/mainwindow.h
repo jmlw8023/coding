@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+//#include "MainWindow2.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,7 +16,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
 private:
     Ui::MainWindow *ui;
+//    MainWindow2 w2;
 };
 #endif // MAINWINDOW_H

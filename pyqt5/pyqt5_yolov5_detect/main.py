@@ -185,6 +185,9 @@ class Detect(QMainWindow):
         # self.result_txt = '<h3>检测结果: </h3>\n <h4>类别 | 分值</h4>\n' 
 
         self.t_start = time.time()
+        self.t_infer = self.t_start
+        self.t_nms = self.t_start
+
         if self.img_name is not None :
             image = cv.imread(self.img_name[0])
             output, img  = self.model.inference(image)

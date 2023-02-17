@@ -99,6 +99,32 @@
      <string>你好啊，Welcome to Qt!</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="s_btn">
+    <property name="geometry">
+     <rect>
+      <x>320</x>
+      <y>310</y>
+      <width>75</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>切换窗体</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="close_btn">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>30</y>
+      <width>75</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>close</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
