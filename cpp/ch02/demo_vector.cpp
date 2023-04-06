@@ -9,27 +9,28 @@ void PrintVector(const vector<int> &v);
 
 int main(int argc, char const *argv[])
 {
-    // vector<int> v1;
+     vector<int> v1;
 
-    // // 默认构造
-    // for (int i = 0; i < 10; i++)
-    // {
-    //     // 插入元素
-    //     v1.push_back(i);
-    // }
+     // 默认构造
+     for (int i = 0; i < 10; i++)
+     {
+         // 插入元素
+         v1.push_back(i);
+     }
 
-    cout << "abc " << endl;
+    // 5个10 方式构造
+    vector<int> v4(5, 10);
+    PrintVector(v4);
 
-    vector<int> v2(5, 10);
-    cout << "abc " << endl;
+    // 区间方式构造
+    vector<int> v2(v1.begin(), v1.end());
+    PrintVector(v2);
 
-    // // PrintVector(v2);
-    // for (auto x : v2)
-    // {
-    //     cout << x << " ";
-    // }
-    
-    cout << "abc " << endl;
+    // 拷贝构造
+    vector<int> v3(v1);
+    PrintVector(v3);
+
+
 
 
     return 0;
