@@ -8,3 +8,9 @@ build-*/
 *.txt.*
 
 font/
+
+Release/
+x64/
+.vs/
+setcode.vcxproj*
+
