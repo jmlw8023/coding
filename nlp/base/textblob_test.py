@@ -9,7 +9,29 @@
 @Desc    :    
 '''
 
+# textBlob 官方文档： https://textblob.readthedocs.io/en/latest/quickstart.html
+
 # import module
+
+from textblob import TextBlob
+
+
+
+
+
+
+
+
+
+
+
+
+txt = '很想知道这个会怎么评价，分析这个句话的情感是什么？'
+
+
+text = TextBlob(txt)
+
+
 
 
 
