@@ -9,7 +9,7 @@
 @Desc    :    
 '''
 
-# pip install    -i https://pypi.tuna.tsinghua.edu.cn/simple 
+# pip install  textblob  -i https://pypi.tuna.tsinghua.edu.cn/simple 
 
 
 # textBlob 官方文档： https://textblob.readthedocs.io/en/latest/quickstart.html
@@ -17,6 +17,9 @@
 # import module
 
 from textblob import TextBlob
+
+from snownlp import SnowNLP
+
 
 
 
@@ -119,29 +122,29 @@ def dl_method():
 
 
 
-# 基于知识图谱
-def knowledge_method():
+# # 基于知识图谱
+# def knowledge_method():
     
-    import jieba
-    import pandas as pd
-    from pyhanlp import *
-    # 加载情感知识图谱
-    graph = pd.read_excel('emotion_graph.xlsx')
-    # 分词
-    text = '今天天气真好，心情非常愉快。'
-    words = jieba.lcut(text)
-    # 计算情感得分
-    poscount = 0
-    negcount = 0
-    for word in words:
-        if word in graph['词语'].tolist():
-            index = graph[graph['词语'] == word].index[0]
-            if graph.loc[index, '情感分类'] == '正面':
-                poscount += 1
-            elif graph.loc[index, '情感分类'] == '负面':
-                negcount += 1
-    score = (poscount - negcount) / len(words)
-    print(score)
+#     import jieba
+#     import pandas as pd
+#     from pyhanlp import *
+#     # 加载情感知识图谱
+#     graph = pd.read_excel('emotion_graph.xlsx')
+#     # 分词
+#     text = '今天天气真好，心情非常愉快。'
+#     words = jieba.lcut(text)
+#     # 计算情感得分
+#     poscount = 0
+#     negcount = 0
+#     for word in words:
+#         if word in graph['词语'].tolist():
+#             index = graph[graph['词语'] == word].index[0]
+#             if graph.loc[index, '情感分类'] == '正面':
+#                 poscount += 1
+#             elif graph.loc[index, '情感分类'] == '负面':
+#                 negcount += 1
+#     score = (poscount - negcount) / len(words)
+#     print(score)
 
 
 # 情感神经网络
@@ -170,13 +173,47 @@ def netword_method():
     print(score)
 
 
-# txt = '很想知道这个会怎么评价，分析这个句话的情感是什么？'
 
 
-# text = TextBlob(txt)
+def analyze_sentiment(text): 
+    blob = TextBlob(text)
+    sentiment=blob.sentiment.polarity
+    print(sentiment)
+    if sentiment > 0.5: 
+        return "积极" 
+    elif sentiment < 0.2: 
+        return "消极" 
+    else: 
+        return "中性"
 
-# print(text.tags)
+content = []
+txt = '很想知道这个会怎么评价，分析这个句话的情感是什么？'
+
+
+res = analyze_sentiment(txt)
+# print(res)
+
+s = SnowNLP(txt)
+# print(f'分词：{s.words}')
+print(s.sentiments)
 
 
 
+import paddlehub as hub
+
+content.append(txt)
+
+senta = hub.Module(name="senta_cnn")
+# test_text = ["这家餐厅很好吃", "这部电影真的很差劲"]
+results = senta.sentiment_classify(texts=content, 
+                                   use_gpu=False,
+                                   batch_size=1)
+    
+for result in results:
+    print(result['text'])
+    print(result['sentiment_label'])
+    print(result['sentiment_key'])
+    print(result['positive_probs'])
+    print(result['negative_probs'])
+    print('+'*30)
 
