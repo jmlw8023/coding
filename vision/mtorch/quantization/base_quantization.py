@@ -13,12 +13,9 @@
 import torch
 from torch import nn
 from torch._export import capture_pre_autograd_graph
-from torch.ao.quantization.quantizer import (xnnpack_quantizer, get_symmetric_quantization_config)
+from torch.ao.quantization.quantizer import (xnnpack_quantizer)
 
-from torch.ao.quantization.quantizer import (
-  XNNPACKQuantizer,
-  get_symmetric_quantization_config,
-)
+
 
 class M(nn.Module):
     
