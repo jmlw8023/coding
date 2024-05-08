@@ -93,7 +93,7 @@
          <widget class="QPushButton" name="btn_open_img">
           <property name="maximumSize">
            <size>
-            <width>80</width>
+            <width>100</width>
             <height>16777215</height>
            </size>
           </property>

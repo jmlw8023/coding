@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'd:\source\code\vision\mcode\python\show_img_scale\ui\home.ui'
+# Form implementation generated from reading ui file 'd:\source\code\vision\mcode\coding\PyQt6\show_img_scale\ui\home.ui'
 #
 # Created by: PyQt6 UI code generator 6.6.1
 #
@@ -49,7 +49,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setSizeConstraint(QtWidgets.QLayout.SizeConstraint.SetMinimumSize)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.btn_open_img = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.btn_open_img.setMaximumSize(QtCore.QSize(80, 16777215))
+        self.btn_open_img.setMaximumSize(QtCore.QSize(100, 16777215))
         self.btn_open_img.setObjectName("btn_open_img")
         self.horizontalLayout_2.addWidget(self.btn_open_img)
         self.horizontalSlider = QtWidgets.QSlider(parent=self.centralwidget)

@@ -21,6 +21,7 @@ from PyQt6.QtGui import QDesktopServices, QImage, QPixmap, QFont, QResizeEvent
 
 from ui.ui_home import Ui_MainWindow
 
+from qt_material import apply_stylesheet, list_themes    # 美化ui的库
 
 
 # 将 OpenCV 的 Mat 转换成 QImage
@@ -57,14 +58,18 @@ class Home_win(QMainWindow):
         self.im = None
         self.img_show = False
         self.img_path = None
+        self.flag_clear = False
 
     # 初始化页面
     def initUI(self):
         self.setWindowTitle('系统')
-        self.format_lists = ['.jpg', '.png', '.jpeg', '.BMP ', '.WebP']
+        self.format_lists = ['.jpg', '.png', '.jpeg', '.bmp', '.WebP']
         
         self.ui.label_v_src.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.ui.label_v_dst.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        
+        self.ui.horizontalSlider.setEnabled(False)
+        self.ui.spinBox.setEnabled(False)
 
 
     # 初始化 信号与槽
@@ -100,6 +105,9 @@ class Home_win(QMainWindow):
                     self.ui.label_v_src.setPixmap(pixmap.scaled(self.width()//2, int(self.height()/1.3)))
                     self.img_show = True
                     
+                    self.ui.horizontalSlider.setEnabled(True)
+                    self.ui.spinBox.setEnabled(True)
+                    
                     value_spin = self.ui.spinBox.value()
                     print(value_spin)
                     self.threshold_set_img(value_spin)
@@ -113,6 +121,8 @@ class Home_win(QMainWindow):
         else:
             self.ui.label_v_src.clear()
             self.ui.label_v_dst.clear()
+            self.ui.horizontalSlider.setEnabled(False)
+            self.ui.spinBox.setEnabled(False)
             self.img_path = None
             QMessageBox.information(self, '错误', '请先载入正确路径!')
     
@@ -133,22 +143,29 @@ class Home_win(QMainWindow):
                 print('---------------thres shape = ', thres.shape)
                 pixmap = QPixmap.fromImage(cv_mat_to_qimage(thres))
                 self.ui.label_v_dst.setPixmap(pixmap.scaled(self.width()//2, int(self.height()/1.3)))
-
+                self.flag_clear = False
             else:
-                QMessageBox.information(self, '信息', '载入的图像有问题!')
+                if not self.flag_clear:
+                    QMessageBox.information(self, '信息', '载入的图像有问题!')
 
         else:
             QMessageBox.information(self, '信息', '请先载入图像文件!')
+    
     # 清理页面
     def clear_page(self):
+        # print('clear_page---')
+        
         if self.img_path:
+            self.im = None
+            self.flag_clear = True
+            # self.img_show = False
             self.ui.label_v_dst.clear()
             self.ui.label_v_src.clear()
             
             self.ui.horizontalSlider.setValue(20)
- 
-            self.img_path = None
-            self.img_show = False
+            self.ui.horizontalSlider.setEnabled(False)
+            self.ui.spinBox.setEnabled(False)
+
 
 
     # 窗口大小发生变化
@@ -156,7 +173,6 @@ class Home_win(QMainWindow):
         # return super().resizeEvent(a0)
         # new_size = event.size()
         # print(f"Window resized to: {new_size.width()}x{new_size.height()}")
-
         if self.im is not None:
             img = cv.cvtColor(self.im, cv.COLOR_BGR2RGB)
             pixmap = QPixmap.fromImage(cv_mat_to_qimage(img))
@@ -170,8 +186,13 @@ if __name__ == '__main__':
     
 
     app = QApplication(sys.argv)
+    
+    # 查看支持的style
+    print(list_themes())
     # screen = app.primaryScreen()
     # screen_size = screen.size()
+    apply_stylesheet(app, theme='dark_lightgreen.xml')
+    
     home_win = Home_win()
     home_win.show()
 
