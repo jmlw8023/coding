@@ -153,7 +153,6 @@ class Home_win(QMainWindow):
     
     # 清理页面
     def clear_page(self):
-        # print('clear_page---')
         
         if self.img_path:
             self.im = None

@@ -1,0 +1,16 @@
+
+
+pyqt6
+pyqtgraph
+pyserail
+qt_material
+matplotlib
+
+# install package
+# pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+
+# run
+# python main.py
+
+
