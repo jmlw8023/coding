@@ -33,6 +33,18 @@ det = ddddocr.DdddOcr(det=True)
 
 im = cv.imread(img_path)
 
+# # OpenCV的numpy格式图像转为二进制数据格式
+# binary_img = None
+# if im is not None:
+#     success, encoded_image = cv.imencode('.jpg', im)  
+#     if success:  
+#             # encoded_image是一个numpy数组，它包含一个元素，该元素是图像的二进制数据  
+#             binary_img = encoded_image.tobytes() 
+
+# if binary_img is not None:
+#     # 二进制格式数据
+#     text_boxes = det.detection(binary_img)
+
 # # 文字区域检测
 text_boxes = det.detection(image)
 # # 检测框
