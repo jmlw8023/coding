@@ -122,7 +122,7 @@ class ImageCorrection(object):
             
         json_lis = glob.glob('{}/*.json'.format(json_folder))
         print(json_lis)
-        json_path = json_lis[7]
+        json_path = json_lis[8]
         
         name, _ = os.path.splitext(os.path.basename(json_path))
         img_path = os.path.join(image_folder, name + '.jpg')
@@ -185,12 +185,76 @@ class ImageCorrection(object):
         out = self.ocr.ocr_for_single_line(transformed_image)
         print(out)
         
+        # 使用ddddocr检测文本
+        # self.use_ddddocr_cls(bk_image)
+        # self.use_ddddocr_det(bk_image)
+        
         # 显示校正后的图像  
         cv.imshow('src', image)  
         cv.imshow('dst', transformed_image)  
         cv.imshow('bk_image', bk_image)  
         
         cv.waitKey(0)
+        
+        
+
+    def use_ddddocr_det(self, cv_img):
+        import ddddocr
+        
+        det = ddddocr.DdddOcr(det=True)
+        # # OpenCV的numpy格式图像转为二进制数据格式
+        binary_img = None
+        if cv_img is not None:
+            success, encoded_image = cv.imencode('.jpg', cv_img)  
+            if success:  
+                    # encoded_image是一个numpy数组，它包含一个元素，该元素是图像的二进制数据  
+                    binary_img = encoded_image.tobytes() 
+
+            if binary_img is not None:
+                # 二进制格式数据
+                # # 文字区域检测
+                text_boxes = det.detection(binary_img)
+                # # 检测框
+                print(text_boxes)
+
+                # 绘制检测框
+                for box in text_boxes:
+                    x1, y1, x2, y2 = box
+                    cv_img = cv.rectangle(cv_img, (x1, y1), (x2, y2), color=(0, 0, 255), thickness=2)
+
+                # 可视化显示
+                cv.imshow('det', cv.resize(cv_img, (720, 480)))
+                # 一直显示
+                # cv.waitKey(0)
+                # cv.destroyAllWindows()
+                
+    # # # 文字识别
+    def use_ddddocr_cls(self, cv_img):
+        import ddddocr
+        
+        if isinstance(cv_img, str):
+            ocr = ddddocr.DdddOcr()
+            result = ocr.classification(cv_img)
+            print(result)
+        
+        elif isinstance(cv_img, np.ndarray):
+            ocr = ddddocr.DdddOcr(det=False)
+            # # OpenCV的numpy格式图像转为二进制数据格式
+            binary_img = None
+            if cv_img is not None:
+                success, encoded_image = cv.imencode('.jpg', cv_img)  
+                if success:  
+                        # encoded_image是一个numpy数组，它包含一个元素，该元素是图像的二进制数据  
+                        binary_img = encoded_image.tobytes() 
+
+            if binary_img is not None:
+                # 二进制格式数据
+                # # 文字区域检测
+                result = ocr.classification(binary_img)
+                print(result)
+                
+        
+        
 
 
 if __name__ == '__main__':
