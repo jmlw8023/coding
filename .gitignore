@@ -13,5 +13,3 @@ Release/
 x64/
 .vs/
 setcode.vcxproj*
-
-*/weights/*
