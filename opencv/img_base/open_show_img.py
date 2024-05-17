@@ -9,12 +9,8 @@
 '''
 
 # import packets
-# import os
+import os
 import cv2 as cv
-
-
-
-
 
 
 
