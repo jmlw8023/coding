@@ -257,20 +257,24 @@ class Home_win(QMainWindow):
 
 
     def save_yolo_detect(self):
-        
-        
-        if self.yolo_im is not None:
-            save_folder = os.path.dirname(self.yolo_im)
-            os.makedirs(save_folder, exist_ok=True)
-            img_name, shuffix = os.path.splitext(os.path.basename(self.yolo_img_path))
-            
-            if self.yolo_image is not None:
-                cv.imwrite('{}'.format(os.path.join(save_folder, img_name + '.png')), self.yolo_image)
-                QMessageBox.information(self, '信息', '文件存储成功!')
-            
-    def open_save_yolo_folder(self):
         if self.yolo_img_path is not None:
-            save_path = os.path.dirname(self.yolo_img_path)
+            if self.yolo_im is not None:
+                # save_folder = os.path.dirname(self.yolo_im)
+                d = os.path.dirname(__file__) if "__file__" in locals() else os.getcwd()
+                save_folder = os.path.join(d, 'results')
+                os.makedirs(save_folder, exist_ok=True)
+                img_name, shuffix = os.path.splitext(os.path.basename(self.yolo_img_path))
+                
+                if self.yolo_image is not None:
+                    cv.imwrite('{}'.format(os.path.join(save_folder, img_name + '.png')), self.yolo_image)
+                    QMessageBox.information(self, '信息', '文件存储成功!')
+                
+    def open_save_yolo_folder(self):
+        # if self.yolo_img_path is not None:
+            # save_path = os.path.join(os.path.dirname(self.yolo_img_path), 'results')
+            # 获取当前py文件路径
+            d = os.path.dirname(__file__) if "__file__" in locals() else os.getcwd()
+            save_path = os.path.join(d, 'results')
             os.makedirs(save_path, exist_ok=True)
             QDesktopServices.openUrl(QUrl.fromLocalFile(save_path))
             # QDesktopServices.openUrl(QUrl.fromLocalFile(self.yolo_img_path))
