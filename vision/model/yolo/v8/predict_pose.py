@@ -157,6 +157,9 @@ pose_palette = np.array([[255, 128, 0], [255, 153, 51], [255, 178, 102], [230, 2
 # 基于调色板为关键点和肢体分配颜色
 kpt_color  = pose_palette[[16, 16, 16, 16, 16, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9]]
 limb_color = pose_palette[[9, 9, 9, 9, 7, 7, 7, 0, 0, 0, 0, 0, 16, 16, 16, 16, 16, 16, 16]]
+
+colors = np.random.uniform(0, 255, size=(80, 3))
+
  
 # 主函数
 if __name__ == "__main__":
@@ -164,9 +167,9 @@ if __name__ == "__main__":
     # yolo export model=./yolov8n-pose.pt  imgsz=640 format=onnx opset=12 simplify=True
 
     # ####################################  自定义后处理进行检测 #######################################################
-    if True:
+    img = cv2.imread("./bus.jpg")
+    if False:
         # 读取输入图像
-        img = cv2.imread("./bus.jpg")
         # img = cv2.imread("ultralytics/assets/bus.jpg")
         
         # img = preprocess_letterbox(img)
@@ -217,9 +220,9 @@ if __name__ == "__main__":
     
     
     ######################################## 使用官方原始进行检测  #######################################################
-    if False:
+    if True:
         # 加载 YOLO 模型
-        model = YOLO("../ultralytics/yolov8n-pose.onnx")
+        model = YOLO("../ultralytics/yolov8n-pose.onnx", task='pose')
         # 使用 YOLO 进行目标检测
         # results = model(img)[0]
         results = model(img)
@@ -251,15 +254,15 @@ if __name__ == "__main__":
                 cv2.line(img, pos1, pos2, [int(x) for x in limb_color[i]], thickness=2, lineType=cv2.LINE_AA)  # 绘制肢体
     
         # 绘制检测到的对象的边界框和标签
-        for obj in boxes:
+        for i, obj in enumerate(boxes):
             left, top, right, bottom = int(obj[0]), int(obj[1]), int(obj[2]), int(obj[3])  # 提取边界框坐标
             confidence = obj[4]  # 置信度分数
             label = int(obj[5])  # 类别标签
-            color = random_color(label)  # 为边界框获取随机颜色
-            cv2.rectangle(img, (left, top), (right, bottom), color=color, thickness=2, lineType=cv2.LINE_AA)  # 绘制边界框
+            # color = random_color(label)  # 为边界框获取随机颜色
+            cv2.rectangle(img, (left, top), (right, bottom), color=colors[i], thickness=2, lineType=cv2.LINE_AA)  # 绘制边界框
             caption = f"{names[label]} {confidence:.2f}"  # 生成包含类名和置信度分数的标签
             w, h = cv2.getTextSize(caption, 0, 1, 2)[0]  # 获取文本大小
-            cv2.rectangle(img, (left - 3, top - 33), (left + w + 10, top), color, -1)  # 绘制标签背景的矩形
+            cv2.rectangle(img, (left - 3, top - 33), (left + w + 10, top), colors[-i], -1)  # 绘制标签背景的矩形
             cv2.putText(img, caption, (left, top - 5), 0, 1, (0, 0, 0), 2, 16)  # 放置标签文本
     
         # 保存标注后的图像
