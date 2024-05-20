@@ -16,7 +16,8 @@ import ddddocr
 # git 网站：https://github.com/sml2h3/ddddocr   https://gitcode.com/sml2h3/ddddocr/overview      
 
 
-img_path = r'../data/images/car_number.jpg'
+# img_path = r'../data/images/car_number.jpg'
+img_path = r'../data/images/number03.png'
 
 
 ############################# 分类 ######################################
