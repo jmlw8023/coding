@@ -336,7 +336,7 @@ class ImageCorrection(object):
         cv.waitKey(0)
         
         
-    # 使用ddddocr进行温拌检测
+    # 使用ddddocr进行文字检测
     def use_ddddocr_det(self, cv_img):
         import ddddocr
         

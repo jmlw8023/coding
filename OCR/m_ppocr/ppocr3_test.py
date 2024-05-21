@@ -135,7 +135,7 @@ ppocr_v3.rec_batch_size = rec_bs
 
 # img_path ='data/images/12.jpg'
 # img_path ='./src/test.jpg'
-img_path = r'../data/images/number01.png'
+img_path = r'../data/images/number02.png'
 # Read the input image
 im = cv.imread(img_path)
 
