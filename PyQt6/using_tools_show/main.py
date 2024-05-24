@@ -266,8 +266,10 @@ class Home_win(QMainWindow):
                 img_name, shuffix = os.path.splitext(os.path.basename(self.yolo_img_path))
                 
                 if self.yolo_image is not None:
-                    cv.imwrite('{}'.format(os.path.join(save_folder, img_name + '.png')), self.yolo_image)
+                    cv.imwrite('{}'.format(os.path.join(save_folder, img_name + '.png')), self.yolo_im)
                     QMessageBox.information(self, '信息', '文件存储成功!')
+                else:
+                    QMessageBox.critical(self, '存储报错', '存储失败!')
                 
     def open_save_yolo_folder(self):
         # if self.yolo_img_path is not None:
