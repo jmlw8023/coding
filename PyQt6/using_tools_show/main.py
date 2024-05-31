@@ -336,11 +336,36 @@ class Home_win(QMainWindow):
                 x_plus_w = round((box[0] + box[2]) * scale)
                 y_plus_h = round((box[1] + box[3]) * scale)
                 
+                cls_name = self.CLASSES[class_ids[index]]
+                # print(cls_name)
+                # print(index)
+                # print(class_ids[index])
+                # print('*'*20)
                 label = f"{self.CLASSES[class_ids[index]]} ({scores[index]:.2f})"
-                color = self.random_colors[class_ids[index]]
-                cv.rectangle(self.yolo_im, (x, y), (x_plus_w, y_plus_h), self.random_colors[-1], 2)
-                cv.putText(self.yolo_im, label, (x - 10, y - 10), cv.FONT_HERSHEY_SIMPLEX, 1.8, color, 2)
-                cv.putText(self.yolo_im, label, (x - 10, y - 10), cv.FONT_HERSHEY_SIMPLEX, 1.8, (0, 0, 205), 2)
+                # color = self.random_colors[class_ids[index]]
+                # cv.rectangle(self.yolo_im, (x, y), (x_plus_w, y_plus_h), self.random_colors[-1], 2)
+                # cv.putText(self.yolo_im, label, (x - 10, y - 10), cv.FONT_HERSHEY_SIMPLEX, 1.8, color, 2)
+                
+                if x < 100 or y < 100 or (w - x_plus_w) < 100 or (h - y_plus_h) < 100:
+                    continue
+                    # cv.putText(self.yolo_im, label, (x_plus_w + 10, y_plus_h - 10), cv.FONT_HERSHEY_SIMPLEX, 1.8, (0, 0, 205), 2)
+                else:
+                    cv.putText(self.yolo_im, label, (x - 10, y - 10), cv.FONT_HERSHEY_SIMPLEX, 1.8, (0, 0, 205), 2)
+                
+                cv.rectangle(self.yolo_im, (x, y), (x_plus_w, y_plus_h), (255, 255, 255), 2)
+                
+                width = (x_plus_w - x)
+                height = (y_plus_h - y)
+                if cls_name == 'pitN' or cls_name == 'pitF':
+                    thresh_rect = max(width, height) * 0.95
+                    print('thresh_rect = ', thresh_rect)
+                    if (width >= thresh_rect) and (height >= thresh_rect):      # 宽 和高差距 不小于 1/20
+                        print(width)
+                        print(height)
+                        print('#'*30)
+                        center_point = (int((width / 2) + x), int((height / 2) + y))
+                        cv.circle(self.yolo_im, center_point, 10, (10, 0, 250), -1)
+                        
             
             return self.yolo_im
 

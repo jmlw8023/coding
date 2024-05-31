@@ -911,6 +911,72 @@
               </item>
              </layout>
             </widget>
+            <widget class="QWidget" name="tab_4">
+             <attribute name="title">
+              <string>页</string>
+             </attribute>
+             <widget class="QScrollArea" name="scrollArea">
+              <property name="geometry">
+               <rect>
+                <x>70</x>
+                <y>80</y>
+                <width>311</width>
+                <height>201</height>
+               </rect>
+              </property>
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>309</width>
+                 <height>199</height>
+                </rect>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QStackedWidget" name="stackedWidget_2">
+              <property name="geometry">
+               <rect>
+                <x>320</x>
+                <y>270</y>
+                <width>318</width>
+                <height>171</height>
+               </rect>
+              </property>
+              <property name="currentIndex">
+               <number>1</number>
+              </property>
+              <widget class="QWidget" name="page_2"/>
+              <widget class="QWidget" name="page_4"/>
+             </widget>
+             <widget class="QCalendarWidget" name="calendarWidget">
+              <property name="geometry">
+               <rect>
+                <x>360</x>
+                <y>30</y>
+                <width>296</width>
+                <height>215</height>
+               </rect>
+              </property>
+             </widget>
+             <widget class="QScrollBar" name="horizontalScrollBar">
+              <property name="geometry">
+               <rect>
+                <x>140</x>
+                <y>330</y>
+                <width>160</width>
+                <height>16</height>
+               </rect>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </widget>
            </widget>
           </item>
          </layout>
@@ -943,7 +1009,7 @@
      <x>0</x>
      <y>0</y>
      <width>1218</width>
-     <height>26</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
