@@ -15,13 +15,14 @@ import sys
 
 import cv2 as cv
 import numpy as np
+
+from collections import defaultdict
+
 from PyQt6.QtCore import Qt, pyqtSignal, QUrl
-from PyQt6.QtWidgets import (QApplication, QMainWindow, QFileDialog, QMessageBox, QLabel)
-from PyQt6.QtGui import QDesktopServices, QImage, QPixmap, QFont, QResizeEvent
+from PyQt6.QtWidgets import (QApplication, QMainWindow, QFileDialog, QMessageBox, QLabel, QVBoxLayout)
+from PyQt6.QtGui import QDesktopServices, QImage, QPixmap, QFont, QResizeEvent, QCloseEvent
 
 from ui.ui_home import Ui_MainWindow
-
-
 
 # 将 OpenCV 的 Mat 转换成 QImage
 def cv_mat_to_qimage(mat):
@@ -65,11 +66,49 @@ class Home_win(QMainWindow):
         self.yolo_image = None
         self.yolo_im = None
         self.is_img_yolo_detecting = False
+
+        # 初始化BlobDetector
+        params = cv.SimpleBlobDetector_Params()
+        # detector = cv.SimpleBlobDetector_create(params)
+
+        # # Change thresholds  设置阈值
+        # params.minThreshold = 200
+        # params.maxThreshold = 10000
+        # Filter by Area. 设置选择区域
+        params.filterByArea = True
+        params.minArea = 0.1
+        params.maxArea = 600
+        # Filter by Circularity   设置圆度
+        params.filterByCircularity = True
+        params.minCircularity = 0.001
+        # Filter by Convexity  设置凸度
+        params.filterByConvexity = True
+        params.minConvexity = 0.01
+        # # Filter by Inertia  设置惯性比
+        # params.filterByInertia = True
+        # params.minInertiaRatio = 0.2
         
+        # 检测到的 blob 之间的最小距离
+        params.minDistBetweenBlobs = 1
+
+        # 
+        params.filterByColor = True         #斑点颜色的限制变量  
+        params.blobColor = 0;    #表示只提取黑色斑点；如果该变量为255，表示只提取白色斑点    
+
+        ver = (cv.__version__).split('.')
+        if int(ver[0]) < 3 :
+            self.detector = cv.SimpleBlobDetector(params)
+        else :
+            self.detector = cv.SimpleBlobDetector_create(params)
+            
+            
+        # self.num_count_dict = defaultdict(int)
+        self.num_count_lis = []
+
         self.CLASSES = ['addB', 'addS', 'pitN', 'pitF']
         self.random_colors = np.random.uniform(0, 255, size=(len(self.CLASSES), 3))
         self.video_format_lists = ['.mp4', '.avi', '.mkv', '.mpeg', '.mov']
-        self.img_format_lists = ['.jpg', '.png', '.bpm', '.jpeg', '.webp']
+        self.img_format_lists = ['.jpg', '.png', '.bmp', '.jpeg', '.webp']
         self.weights_format_lists = ['.pt', '.onnx', '.torchscript', '.vino']
 
     # 初始化页面
@@ -77,6 +116,8 @@ class Home_win(QMainWindow):
         self.setWindowTitle('系统')
         ##################################################################################################
         # self.ui.label_yolo_src.setScaledContents(True)
+        self.ui.label_yolo_dst.setScaledContents(True)
+        self.ui.label_yolo_src.setScaledContents(True)
         
         ##################################################################################################
         self.ui.label_v_src.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -96,6 +137,10 @@ class Home_win(QMainWindow):
         
         self.yolo_weight_path = r'./data/weights/b113_yolov8n.onnx'
         self.ui.lineEdit_yolo_weight_path.setText(self.yolo_weight_path)
+        
+        
+        self.nms_thresh         = 0.5
+        self.confidence_thresh  = 0.25
 
 
     # 初始化 信号与槽
@@ -112,6 +157,7 @@ class Home_win(QMainWindow):
         self.ui.btn_yolo_big_show.clicked.connect(self.yolo_show_big_img)
         
         
+        self.ui.btn_yolo_count.clicked.connect(self.yolo_count)
         
         
         self.ui.btn_yolo_test.clicked.connect(self.open_yolo_test)
@@ -177,8 +223,7 @@ class Home_win(QMainWindow):
             self.ui.lineEdit_yolo_file_path.clear()
             QMessageBox.information(self, '错误', '请先载入正确路径!')
             
-            
-            
+
     # 选择图像文件
     def open_yolo_test(self):
         
@@ -217,11 +262,12 @@ class Home_win(QMainWindow):
         
     def yolo_show_big_img(self, btn_flag):
         
+        self.label_img_big = ShowBigWindow()
         if btn_flag:
-            
-            self.label_img_big = QLabel()
+            # label_img_big = QLabel()
             self.label_img_big.setWindowTitle('结果放大')
             self.label_img_big.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            self.label_img_big.setScaledContents(True)
             # if self.is_img_yolo_detecting:
             if self.yolo_im is not None:
                 pixmap = QPixmap.fromImage(cv_mat_to_qimage(self.yolo_im))
@@ -230,16 +276,18 @@ class Home_win(QMainWindow):
                 self.label_img_big.show()
                 self.is_img_yolo_detecting = True
                 
-                self.label_img_big.destroyed.connect(self.destroy_big_label)
+                # self.label_img_big.destroyed.connect(self.destroy_big_label)
+                self.label_img_big.close.connect(self.destroy_big_label)
                     
             else:
                 self.ui.btn_yolo_big_show.setChecked(False)
                 QMessageBox.critical(self, '提示', '未有已检测图像!')
             
-        # else:
+        else:
+            # self.label_img_big.close()
+            self.label_img_big.hide()
             
             
-        
     def destroy_big_label(self):
         print('---------destroy_big_label------------')
         self.ui.btn_yolo_big_show.setChecked(False)
@@ -258,6 +306,173 @@ class Home_win(QMainWindow):
                 self.label_img_big.setPixmap(pixmap.scaled(self.width(), int(self.height())))
         else:
             QMessageBox.information(self, '信息', '请先载入图像文件!')
+            
+    def blob_detect(self, img, img_show=False, img_draw=False):
+        
+        if img is not None:
+            
+            # 检测blob
+            keypoints = self.detector.detect(img)
+            num_kps = len(keypoints)
+            # print('keypoints detect nums = {}'.format(num_kps))
+
+            if img_show:
+                # 绘制结果
+                image_with_keypoints = cv.drawKeypoints(img, keypoints, np.array([]), (0,0,255), cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+                cv.putText(image_with_keypoints, 'nums = {}'.format(num_kps), (10, 30), cv.FONT_HERSHEY_SIMPLEX, fontScale=0.3, color=(255, 255, 255), thickness=1, lineType=cv.LINE_AA)
+                cv.imshow('img_blob_detect', image_with_keypoints)
+                cv.waitKey(0)
+            
+            return len(keypoints)
+
+        return None
+
+    def yolo_count(self):
+        if not self.model: 
+            print(self.yolo_weight_path)
+            if self.yolo_weight_path.lower().endswith('.onnx'):
+                self.model: cv.dnn.Net = cv.dnn.readNetFromONNX(self.yolo_weight_path)
+                  
+        if self.yolo_image is not None:
+            self.yolo_im = self.yolo_image.copy()
+            h, w = self.yolo_im.shape[:2]
+
+            length = max((h, w))
+
+            image = np.zeros((length, length, 3), np.uint8)
+            image[0:h, 0:w] = self.yolo_im
+
+            scale = length / 640
+            # Preprocess the image and prepare blob for model
+            blob = cv.dnn.blobFromImage(image, scalefactor=1 / 255, size=(640, 640), swapRB=True)
+            self.model.setInput(blob)
+
+            outputs = self.model.forward()
+
+            # Prepare output array
+            outputs = np.array([cv.transpose(outputs[0])])
+            rows = outputs.shape[1]
+
+            boxes = []
+            scores = []
+            class_ids = []
+            # Iterate through output to collect bounding boxes, confidence scores, and class IDs
+            for i in range(rows):
+                classes_scores = outputs[0][i][4:]
+                (minScore, maxScore, minClassLoc, (x, maxClassIndex)) = cv.minMaxLoc(classes_scores)
+                if maxScore >= 0.25:
+                    box = [
+                        outputs[0][i][0] - (0.5 * outputs[0][i][2]),
+                        outputs[0][i][1] - (0.5 * outputs[0][i][3]),
+                        outputs[0][i][2],
+                        outputs[0][i][3],
+                    ]
+                    boxes.append(box)
+                    scores.append(maxScore)
+                    class_ids.append(maxClassIndex)           
+                
+
+            result_boxes = cv.dnn.NMSBoxes(boxes, scores, 0.25, 0.45, 0.5)
+
+            detections = []
+
+            # Iterate through NMS results to draw bounding boxes and labels
+            count = 0
+            self.num_count_lis.clear()
+            for i in range(len(result_boxes)):
+                index = result_boxes[i]
+                box = boxes[index]
+                detection = {
+                    "class_id": class_ids[index],
+                    "class_name": self.CLASSES[class_ids[index]],
+                    "confidence": scores[index],
+                    "box": box,
+                    "scale": scale,
+                }
+                detections.append(detection)
+ 
+                x = round(box[0] * scale)
+                y = round(box[1] * scale)
+                x_plus_w = round((box[0] + box[2]) * scale)
+                y_plus_h = round((box[1] + box[3]) * scale)
+                
+                cls_name = self.CLASSES[class_ids[index]]
+                # print(cls_name)
+                label = f"{self.CLASSES[class_ids[index]]} ({scores[index]:.2f})"
+                # color = self.random_colors[class_ids[index]]
+                # cv.rectangle(self.yolo_im, (x, y), (x_plus_w, y_plus_h), self.random_colors[-1], 2)
+                # cv.putText(self.yolo_im, label, (x - 10, y - 10), cv.FONT_HERSHEY_SIMPLEX, 1.8, color, 2)
+                
+                width = (x_plus_w - x)
+                height = (y_plus_h - y)
+                thresh_rect = max(width, height) * 0.95      # 宽 和高差距 不小于 1/20
+                # print('thresh_rect = ', thresh_rect)
+                if x < 100 or y < 100 or (w - x_plus_w) < 100 or (h - y_plus_h) < 100:
+                    continue
+                    # cv.putText(self.yolo_im, label, (x_plus_w + 10, y_plus_h - 10), cv.FONT_HERSHEY_SIMPLEX, 1.8, (0, 0, 205), 2)
+                # elif (width >= thresh_rect) and (height >= thresh_rect):      # 宽 和高差距 不小于 1/20
+                #     continue
+                else:
+                    num_count_dict = {}
+                    if cls_name == 'pitN' or cls_name == 'pitF':    # 指定类别
+                        # thresh_rect = max(width, height) * 0.95      # 宽 和高差距 不小于 1/20
+                        # # print('thresh_rect = ', thresh_rect)
+                        # if (width >= thresh_rect) and (height >= thresh_rect):      # 宽 和高差距 不小于 1/20
+                        #     # print(width)
+                        #     # print(height)
+                        #     # print('#'*30)
+                            
+                            part_center_point  = (width // 2, height // 2)
+                            # 计算最小边长的一半作为圆的半径
+                            radius = min(width, height) // 2
+                            
+                            # cv.imshow('res', self.yolo_im[y:y+height, x:x+width])
+                            # cv.waitKey(0)
+                            part_img = self.yolo_im[y:y+height, x:x+width]
+                            part_img = cv.cvtColor(part_img, cv.COLOR_BGR2GRAY)
+                            
+                            # mask_part = np.zeros((part_img.shape[:2]), dtype=np.uint8)
+                            mask_part = np.zeros_like(part_img, dtype=np.uint8)
+                            
+                            # # 以重心为中心，绘制圆形遮罩
+                            cv.circle(mask_part, part_center_point, radius, (255, 255, 255), -1)
+                            
+                            # # part = cv.cvtColor(part_img, cv.COLOR_BGR2GRAY)
+                            result  = cv.bitwise_and(part_img, part_img, mask=mask_part)
+                            
+                            # cv.imshow('res', result)
+                            # cv.waitKey(0)
+                            
+                            res_num = self.blob_detect(result, img_show=False)
+                            if (res_num):
+                                # draw_nums_list.append(res)
+                                # print(res)
+                                print(label)
+                                count += 1
+                                cv.putText(self.yolo_im, 'nums = {}'.format(res_num), (int(x * 1.03), int(y + (height * 1.1))), cv.FONT_HERSHEY_SIMPLEX, fontScale=1.8, color=(200, 0, 20), thickness=2, lineType=cv.LINE_AA)
+                                num_count_dict[label[:4]] = res_num
+                                self.num_count_lis.append(num_count_dict)
+                            
+                            # center_point = (int((width / 2) + x), int((height / 2) + y))
+                            # cv.circle(self.yolo_im, center_point, 10, (10, 0, 250), -1)
+                            
+                    cv.rectangle(self.yolo_im, (x, y), (x_plus_w, y_plus_h), (255, 255, 255), 2)
+                    cv.putText(self.yolo_im, label, (int(x * 1.02), y - 10), cv.FONT_HERSHEY_SIMPLEX, 1.8, (0, 0, 205), 2)
+                    
+                    print('----------', label)
+                    # cv.putText(self.yolo_im, label, (x - 10, y - 10), cv.FONT_HERSHEY_SIMPLEX, 1.8, (0, 0, 205), 2)
+
+            print('count = ', count)
+            print(self.num_count_lis)
+            pixmap = QPixmap.fromImage(cv_mat_to_qimage(self.yolo_im))
+            # self.ui.label_yolo_dst.setPixmap(pixmap.scaled(self.width()//2, int(self.height()/1.3)))
+            self.ui.label_yolo_dst.setPixmap(pixmap.scaled(self.width()//2, (self.height())))
+            if self.is_img_yolo_detecting:
+                self.label_img_big.setPixmap(pixmap.scaled(self.width(), int(self.height())))
+                
+            return self.yolo_im
+        
+ 
     def yolo_detect(self, yolo_image):
         
         if not self.model: 
@@ -505,6 +720,44 @@ class Home_win(QMainWindow):
             self.img_show = True
             
             self.threshold_set_img(self.ui.spinBox.value())
+            
+
+class ShowBigWindow(QLabel):
+    
+    close = pyqtSignal()
+    
+    def __init__(self) -> None:
+        super().__init__()
+        
+    #     self.initUI()
+        
+        
+    # def initUI(self):
+        
+        self.setWindowTitle('放大图像显示')
+        
+        self.label = QLabel(self)
+        # self.label = label
+        
+        
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        
+        layout = QVBoxLayout(self)
+        layout.addWidget(self.label)
+        
+        
+        # self.label.destroyed.connect(self.close_event)
+        
+    # def close_event(self):
+
+    def closeEvent(self, event):
+        
+        self.close.emit()
+        # print('ShowBigWindow emit signal!')
+    #     self.close()
+        
+        
+
 
 if __name__ == '__main__':
     
