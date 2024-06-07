@@ -1,0 +1,20 @@
+
+# 安装库
+# pyqt6
+opencv-python
+onnxruntime
+
+
+#####################################################################################
+# 安装FastDpeloy python包（详细文档请参考`部署环境准备`）
+# pip install fastdeploy-python -f https://www.paddlepaddle.org.cn/whl/fastdeploy.html
+
+#####################################################################################
+#  安装包 pip install 包名 -i https://pypi.tuna.tsinghua.edu.cn/simple some-package  # -i 使用清华源安装，国内源速度快
+#  安装包 pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple some-package  # 从txt文件安装
+
+
+#####################################################################################
+# 创建环境 conda create -n ai python=3.9 
+# 激活环境  conda activate ai
+# 运行程序 python main.py

@@ -135,7 +135,12 @@ ppocr_v3.rec_batch_size = rec_bs
 
 # img_path ='data/images/12.jpg'
 # img_path ='./src/test.jpg'
-img_path = r'../data/images/number02.png'
+# img_path = r'../data/images/number02.png'
+img_path = r'../data/images/20240606/01.png'
+
+if img_path is None:
+    print('read image error')
+    exec(-1)
 # Read the input image
 im = cv.imread(img_path)
 
@@ -189,9 +194,11 @@ if len(result.text) > 0:
                     cv.rectangle(im, left_up, right_down, random_color, thickness=2, lineType=cv.LINE_AA)
 
 
+name, shuffix = os.path.splitext(os.path.basename(img_path))
+save_folder = '../data/results'
 
-cv.imwrite("../data/results/result.jpg", im)
-print("Visualized result save in ./result.jpg")
+cv.imwrite("{}".format(os.path.join(save_folder, name + '.png')), im)
+print(f"Visualized result save in {save_folder}")
 
 
 

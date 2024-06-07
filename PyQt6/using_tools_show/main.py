@@ -60,14 +60,14 @@ class Home_win(QMainWindow):
         super().__init__()
         
         self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
+        self.ui.setupUi(self)       # 启动ui文件对应对象
 
-        self.initUI()
-        self.init_signal_solt()
+        self.initUI()               # 页面初始化
+        self.init_signal_solt()     # 槽函数初始化
         
         self.im = None
         self.img_show = False
-        self.img_path = None
+        self.img_path = None    # 图像地址
         
         self.yolo_img_path = None
         self.model = None
