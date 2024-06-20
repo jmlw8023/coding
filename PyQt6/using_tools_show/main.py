@@ -67,7 +67,7 @@ class Home_win(QMainWindow):
         
         self.im = None
         self.img_show = False
-        self.img_path = None    # 图像地址
+        self.img_path = None    # 图像地址jm
         
         self.yolo_img_path = None
         self.model = None
