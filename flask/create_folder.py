@@ -22,13 +22,5 @@ basefolder = os.path.dirname(basedir)
 
 folder_lis = os.listdir(basefolder)
 
-if 
-
-
-
-
-
-
-
 
 
