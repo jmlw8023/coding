@@ -10,12 +10,9 @@
 
 # import module
 import os
-
 import cv2 as cv
 import numpy as np
-
 import pandas as pd
-
 import streamlit as st
 
 from PIL import Image
@@ -46,7 +43,6 @@ def test_image():
     
     # pillow_image.show('demo')
     st.image(pillow_image, caption='random create image', width=320)
-    
 
 
 def test_pd():
@@ -104,18 +100,10 @@ def test_editer():
 def main():
     
     # test_pd()
-    
     # test_editer()
-    
     test_image()
-    
-    
-    
+   
     pass
-
-
-
-
 
 
 if __name__ == '__main__':
@@ -123,6 +111,7 @@ if __name__ == '__main__':
     main()
     
     pass
+
 
 
 
