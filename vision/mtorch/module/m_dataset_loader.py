@@ -118,9 +118,9 @@ def train_data(train_data, test_data):
 
 if __name__ == '__main__':
     
+    print(f"Using {device} device")
     
-    
-    download_fashionMNIST_data()
+    # download_fashionMNIST_data()
     
     
     pass
