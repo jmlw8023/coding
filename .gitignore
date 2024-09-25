@@ -14,3 +14,5 @@ x64/
 .vs/
 setcode.vcxproj*
 build/*
+
+data/*
