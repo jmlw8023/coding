@@ -17,6 +17,13 @@ plt.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体为宋体
 plt.rcParams['axes.unicode_minus'] = False    # 解决负号显示问题
 
 
+# 有梯度的张量
+x = torch.rand(2, 3, requires_grad=True)
+y = x * x + 2 * x + 3
+y.backward()
+x.grad
+
+
 def test_module():
 
     img = torch.randn(1, 3, 28, 28)
@@ -74,7 +81,7 @@ def test_class_moudle():
     y_pred_lis = nn.Softmax(dim=1)(y_res)
     
     y_pred = y_pred_lis.argmax(1)
-    print(f'prediction class = {y_pred.item()}')
+    print(f'prediction class = {y_pred.item()}')    # item() 只适用于单个元素情况
 
 
 
@@ -83,6 +90,7 @@ device = ('cuda' if torch.cuda.is_available() else 'mps'  if torch.backends.mps.
 if __name__ == '__main__':
     
     print(f'now using {device} device')
+    
     
     test_module()
     # 测试网络
