@@ -1,11 +1,23 @@
+/**
+ * @file cpu_backend.cc
+ * @brief CPU backend implementation source file
+ *
+ * Uses native CPU for YOLO inference.
+ * This is the most versatile implementation with minimal dependencies.
+ */
+
 #include "backend/ibackend.hpp"
 #include <cstring>
 
 namespace yolo {
 
+// ============================================================
+// CpuBackend Implementation
+// ============================================================
+
 bool CpuBackend::initialize(const ModelConfig& config) {
     config_ = config;
-    model_ptr_ = nullptr;
+    model_ptr_ = nullptr;  // Placeholder: actual should load ONNX model
     initialized_ = true;
     return true;
 }
@@ -19,12 +31,14 @@ std::vector<DetectResult> CpuBackend::infer(
 ) {
     std::vector<DetectResult> results;
 
-    // Preprocess - resize and normalize
-    float* input_buffer = new float[config_.input_width * config_.input_height * 3];
+    // Preprocess: resize and normalize
+    int target_w = config_.input_width;
+    int target_h = config_.input_height;
+    float* input_buffer = new float[target_w * target_h * 3];
     preprocess(data, width, height, channels, is_bgr, input_buffer);
 
-    // Inference placeholder - actual implementation would use ONNX Runtime
-    // ...
+    // Placeholder: actual inference should happen here
+    // ONNX Runtime inference call goes here
 
     delete[] input_buffer;
     return results;
@@ -38,6 +52,10 @@ std::string CpuBackend::getName() const {
     return "CPU";
 }
 
+// ============================================================
+// Preprocess Implementation
+// ============================================================
+
 void CpuBackend::preprocess(
     const uint8_t* input,
     int w,
@@ -46,11 +64,8 @@ void CpuBackend::preprocess(
     bool bgr,
     float* output
 ) {
-    // Convert BGR/RGB to RGB and resize
-    // This is a simplified implementation
     int target_w = config_.input_width;
     int target_h = config_.input_height;
-
     float scale_x = static_cast<float>(w) / target_w;
     float scale_y = static_cast<float>(h) / target_h;
 
@@ -65,9 +80,9 @@ void CpuBackend::preprocess(
             int dst_idx = (y * target_w + x) * 3;
 
             if (bgr && c == 3) {
-                output[dst_idx + 0] = input[src_idx + 2] / 255.0f; // R
-                output[dst_idx + 1] = input[src_idx + 1] / 255.0f; // G
-                output[dst_idx + 2] = input[src_idx + 0] / 255.0f; // B
+                output[dst_idx + 0] = input[src_idx + 2] / 255.0f;  // R
+                output[dst_idx + 1] = input[src_idx + 1] / 255.0f;  // G
+                output[dst_idx + 2] = input[src_idx + 0] / 255.0f;  // B
             } else {
                 for (int ch = 0; ch < 3; ++ch) {
                     output[dst_idx + ch] = input[src_idx + ch] / 255.0f;
@@ -82,8 +97,10 @@ void CpuBackend::postprocess(
     int output_size,
     std::vector<DetectResult>& results
 ) {
-    // Parse YOLO output and apply NMS
-    // Implementation depends on model version
+    // Placeholder implementation
+    // Parse YOLO output format based on version:
+    // - YOLOv5/v7: [batch, num_detections, 5 + num_classes]
+    // - YOLOv8+: uses new output format
 }
 
 } // namespace yolo

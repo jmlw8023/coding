@@ -1,13 +1,27 @@
+/**
+ * @file yolo_factory.cc
+ * @brief YoloInterface factory implementation source file
+ */
+
 #include "detail/detector_impl.hpp"
 #include "backend/ibackend.hpp"
 #include <stdexcept>
+#include <cstring>
 
 namespace yolo {
+
+// ============================================================
+// ImageDataImpl Implementation
+// ============================================================
 
 ImageDataImpl::ImageDataImpl(const uint8_t* d, int w, int h, int c, bool bgr)
     : width(w), height(h), channels(c), is_bgr(bgr) {
     data.assign(d, d + w * h * c);
 }
+
+// ============================================================
+// DetectorImpl Implementation
+// ============================================================
 
 DetectorImpl::DetectorImpl(ModelVersion version, std::unique_ptr<IBackend> backend)
     : version_(version)
@@ -68,6 +82,10 @@ std::string DetectorImpl::getBackendName() const {
 std::string DetectorImpl::getVersionName() const {
     return yolo::getVersionName(version_);
 }
+
+// ============================================================
+// Factory Functions
+// ============================================================
 
 std::unique_ptr<Detector> createDetector(ModelVersion version, BackendType backend) {
     std::unique_ptr<IBackend> backend_impl;

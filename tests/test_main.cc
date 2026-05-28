@@ -1,8 +1,13 @@
+/**
+ * @file test_main.cc
+ * @brief YoloInterface test program entry point
+ */
+
 #include "yolo_test.hpp"
 
 int main() {
     std::cout << "==========================================\n";
-    std::cout << "       YoloInterface Test Suite           \n";
+    std::cout << "       YoloInterface Test Suite          \n";
     std::cout << "==========================================\n\n";
 
     bool all_passed = true;
@@ -20,9 +25,9 @@ int main() {
 
     std::cout << "\n==========================================\n";
     if (all_passed) {
-        std::cout << "       ALL TESTS PASSED                 \n";
+        std::cout << "       ALL TESTS PASSED                  \n";
     } else {
-        std::cout << "       SOME TESTS FAILED                \n";
+        std::cout << "       SOME TESTS FAILED                 \n";
     }
     std::cout << "==========================================\n";
 
