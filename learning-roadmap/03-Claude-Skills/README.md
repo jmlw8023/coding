@@ -19,7 +19,19 @@
 
 ## 实战状态
 
-⏳ **notebook 待建**（路线已写）。本章动手任务以「在 `~/.claude/skills/` 下真造 Skill 并跑通」为主，notebook 用来教学 + 测 description 召回率。
+✅ **notebook 已就位**（路线已写）。本章动手任务以「在 `~/.claude/skills/` 下真造 Skill 并跑通」为主，notebook 用来教学 + 测 description 召回率。
+
+### Notebook 列表（6 个，4 个 stage）
+| Stage | Notebook | 状态 |
+|-------|----------|------|
+| 1 入门 | [33_skill_browser.ipynb](practice/stage1_入门/33_skill_browser.ipynb) | ✅ 完成（沙箱建模） |
+| 2 进阶 | [34_first_skill.ipynb](practice/stage2_进阶/34_first_skill.ipynb) | ✅ 完成（写 Skill + 反例） |
+| 2 进阶 | [35_description_recall_test.ipynb](practice/stage2_进阶/35_description_recall_test.ipynb) | ✅ 完成（10 触发 / 10 不触发） |
+| 3 高级 | [36_skill_subagent_compose.ipynb](practice/stage3_高级/36_skill_subagent_compose.ipynb) | ✅ 完成 |
+| 3 高级 | [37_skill_hooks_permissions.ipynb](practice/stage3_高级/37_skill_hooks_permissions.ipynb) | ✅ 完成 |
+| 4 专家 | [38_skill_repo_skeleton.ipynb](practice/stage4_专家/38_skill_repo_skeleton.ipynb) | ✅ 完成 |
+
+所有 notebook 均遵循 **intro → setup → sN-md/cN → deep → checklist** 模式。
 
 ---
 
@@ -82,7 +94,7 @@ Claude Code 会按 description 自动召回；你也可以 `/skill-name` 显式�
 - [ ] 浏览本机 `C:\Users\ril\.claude\` 目录，搞清楚 Skill 文件放在哪、长什么样、与 `settings.json` 的关系
 
 ### 配套 notebook
-⏳ 待建（计划：Skill 浏览器 / 触发条件实验）
+✅ **[33_skill_browser.ipynb](practice/stage1_入门/33_skill_browser.ipynb)** — Skill 机制 / 沙箱建模 / SkillLoader 实现
 
 ### 推荐资源
 - 本机：`~/.claude/` 目录（`skills/`、`settings.json`、`commands/`）
@@ -134,7 +146,8 @@ Claude Code 会按 description 自动召回；你也可以 `/skill-name` 显式�
 - [ ] 用 `update-config` skill 把上述 Skill 用到的命令加进 `settings.json` 的 `permissions.allow`
 
 ### 配套 notebook
-⏳ 待建（计划：description 召回测试 / Skill 文件结构生成器）
+✅ **[34_first_skill.ipynb](practice/stage2_进阶/34_first_skill.ipynb)** — 5 段模板 / 反例 Skill / checklist / 附属资源
+✅ **[35_description_recall_test.ipynb](practice/stage2_进阶/35_description_recall_test.ipynb)** — 触发 / 不触发 10 对回归测试
 
 ### 推荐资源
 - 本机：你自己写的 Skill 就是最好的参考
@@ -165,7 +178,8 @@ Claude Code 会按 description 自动召回；你也可以 `/skill-name` 显式�
 - [ ] 给 Skill 写一组**测试输入**（10 条），run 一遍看召回准确率
 
 ### 配套 notebook
-⏳ 待建（计划：sub-agent spawn 演示 / MCP server 调用 / 召回率回归）
+✅ **[36_skill_subagent_compose.ipynb](practice/stage3_高级/36_skill_subagent_compose.ipynb)** — Skill 触发 sub-agent / meta-skill
+✅ **[37_skill_hooks_permissions.ipynb](practice/stage3_高级/37_skill_hooks_permissions.ipynb)** — hooks 自动行为 + permissions 自动放行
 
 ### 推荐资源
 - [MCP 官方 servers](https://github.com/modelcontextprotocol/servers)
@@ -198,7 +212,7 @@ Claude Code 会按 description 自动召回；你也可以 `/skill-name` 显式�
 - [ ] 写一份「**Skill 设计 checklist**」：单一职责 / description 清晰 / 有反例 / 有恢复路径 / 破坏性操作要确认
 
 ### 配套 notebook
-⏳ 待建（计划：Skill 仓 scaffolding / 召回率监控 dashboard）
+✅ **[38_skill_repo_skeleton.ipynb](practice/stage4_专家/38_skill_repo_skeleton.ipynb)** — Skill 仓 scaffolding / 项目级覆盖 / 版本化
 
 ### 推荐资源
 - [Anthropic · Plugin 文档](https://docs.anthropic.com/) —— 搜 plugin / marketplace

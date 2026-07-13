@@ -19,7 +19,9 @@
 
 ## 实战状态
 
-⏳ **notebook 待建**（路线已写，本 README 列出全部任务与资源）。先用本机 Claude Code 自身作为最快上手的 Agent 案例。
+✅ **已落地 8 个 notebook**（4 stage 全覆盖，全部 smoke 通过）→ [practice/](practice/)
+
+所有 notebook **offline-first**（规则 stub LLM），`MODE='ONLINE'` 时切到本机 Ollama OpenAI 兼容接口。
 
 ---
 
@@ -66,7 +68,11 @@
 - [ ] **观察 Claude Code 自身**：跑 `/help`，思考每个工具在 Agent 框架里扮演什么角色
 
 ### 配套 notebook
-⏳ 待建（计划：手撸 Agent / Tool Use / ReAct trace 可视化）
+| # | 文件 | 主题 |
+|---|------|------|
+| 25 | [stage1_入门/25_minimal_agent.ipynb](practice/stage1_入门/25_minimal_agent.ipynb) | 200 行手撸 ReAct Agent + 2 工具 |
+| 26 | [stage1_入门/26_tool_use_openai_style.ipynb](practice/stage1_入门/26_tool_use_openai_style.ipynb) | OpenAI/Anthropic 风格 Tool Use 规范 + parallel |
+| 27 | [stage1_入门/27_observe_claude_code.ipynb](practice/stage1_入门/27_observe_claude_code.ipynb) | 拆 Claude Code 的 Agent loop + trace 甘特图 |
 
 ### 推荐资源
 - [Anthropic · Building effective agents](https://www.anthropic.com/research/building-effective-agents) —— **本章核心读物，必读多遍**
@@ -107,7 +113,10 @@
 - [ ] 加长期记忆：跑完的对话存入向量库，下次开新会话基于 query 召回最近相关历史
 
 ### 配套 notebook
-⏳ 待建（计划：tool 设计 / MCP 配置 / 长期记忆 / 主流框架对比）
+| # | 文件 | 主题 |
+|---|------|------|
+| 28 | [stage2_进阶/28_multi_tool_memory_budget.ipynb](practice/stage2_进阶/28_multi_tool_memory_budget.ipynb) | 4 工具 + 长期记忆（向量库召回）+ token/步数预算 |
+| 29 | [stage2_进阶/29_minimal_mcp_server.ipynb](practice/stage2_进阶/29_minimal_mcp_server.ipynb) | 手撸 MCP-like 协议（initialize / tools/list / tools/call） |
 
 ### 推荐资源
 - [Anthropic · MCP 介绍](https://www.anthropic.com/news/model-context-protocol)
@@ -144,7 +153,10 @@
 - [ ] 做 Agent 测试集：20 任务，每个有成功标准 + 禁止行为，用 LLM-judge 自动打分
 
 ### 配套 notebook
-⏳ 待建（计划：Manager-Worker / sub-agent 隔离 / Browser Use / LangGraph 多 Agent）
+| # | 文件 | 主题 |
+|---|------|------|
+| 30 | [stage3_高级/30_manager_worker_multiagent.ipynb](practice/stage3_高级/30_manager_worker_multiagent.ipynb) | Manager + 3 Workers 协作 + 失败率叠加演示 |
+| 31 | [stage3_高级/31_state_machine_langgraph.ipynb](practice/stage3_高级/31_state_machine_langgraph.ipynb) | LangGraph 状态机 + checkpoint + interrupt(HITL) |
 
 ### 推荐资源
 - 论文：[AutoGen (2023)](https://arxiv.org/abs/2308.08155)、[Reflexion (2023)](https://arxiv.org/abs/2303.11366)、[Voyager (2023)](https://arxiv.org/abs/2305.16291)、[Mixture-of-Agents (2024)](https://arxiv.org/abs/2406.04692)
@@ -176,7 +188,9 @@
 - [ ] 写一份「Agent 系统设计文档」
 
 ### 配套 notebook
-⏳ 待建（计划：mini-framework / 安全 / DPO trajectory）
+| # | 文件 | 主题 |
+|---|------|------|
+| 32 | [stage4_专家/32_mini_agent_framework.ipynb](practice/stage4_专家/32_mini_agent_framework.ipynb) | ~500 行自研 mini framework + 5 种 prompt injection 与防御 |
 
 ### 推荐资源
 - [Anthropic · Claude Agent SDK 文档](https://docs.anthropic.com/)
