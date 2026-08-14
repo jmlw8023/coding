@@ -1,0 +1,24 @@
+# 本地 conda 环境下音频采集与分析桌面应用依赖
+# 推荐：conda create -n audio python=3.10 -y && conda activate audio
+
+# GUI 框架（PySide6，LGPL 许可，可商用，无版权问题）
+PySide6>=6.5
+
+# 核心数值 / 信号处理
+numpy>=1.23
+scipy>=1.10
+
+# 录音与 IO
+sounddevice>=0.4.6          # 麦克风录音 / 设备扫描
+soundfile>=0.12             # wav / flac / ogg 读写
+lameenc>=1.2                # mp3 编码（可选，纯 python，LGPL）
+
+# 绘图（嵌入 Qt 窗口）
+matplotlib>=3.7
+
+# 分析
+librosa>=0.10               # Mel / MFCC / 基频（可选，缺失时降级）
+pandas>=2.0                 # 对比分析表格（可选）
+
+# 可选
+noisereduce>=2.0            # 降噪分析（可选）

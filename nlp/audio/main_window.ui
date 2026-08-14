@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x><y>0</y><width>1100</width><height>760</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>音频采集与分析工具 (PySide6)</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="main_vlayout">
+    <item>
+     <widget class="QTabWidget" name="tabs">
+      <widget class="QWidget" name="tab_record">
+       <attribute name="title">
+        <string>🎤 录音</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="record_vlayout">
+        <item>
+         <layout class="QHBoxLayout" name="rec_h1">
+          <item>
+           <widget class="QLabel" name="label_device">
+            <property name="text"><string>输入设备:</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="device_cb">
+            <property name="minimumWidth"><number>500</number></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="refresh_btn">
+            <property name="text"><string>刷新设备</string></property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="rec_h_out">
+          <item>
+           <widget class="QLabel" name="label_out_dev">
+            <property name="text"><string>输出设备(试听):</string></property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="out_dev_cb">
+            <property name="minimumWidth"><number>500</number></property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="rec_h2">
+          <item><widget class="QLabel" name="label_channels"><property name="text"><string>通道数:</string></property></widget></item>
+          <item><widget class="QComboBox" name="channels_cb"><property name="currentText"><string>1</string></property>
+           <item><property name="text"><string>1</string></property></item><item><property name="text"><string>2</string></property></item></widget></item>
+          <item><widget class="QLabel" name="label_sr"><property name="text"><string>采样率:</string></property></widget></item>
+          <item><widget class="QComboBox" name="sr_cb"><property name="currentText"><string>44100</string></property>
+           <item><property name="text"><string>8000</string></property></item><item><property name="text"><string>16000</string></property></item>
+           <item><property name="text"><string>22050</string></property></item><item><property name="text"><string>32000</string></property></item>
+           <item><property name="text"><string>44100</string></property></item><item><property name="text"><string>48000</string></property></item></widget></item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="rec_h3">
+          <item><widget class="QLabel" name="label_dur"><property name="text"><string>录音时长:</string></property></widget></item>
+          <item><widget class="QComboBox" name="dur_cb"><property name="currentText"><string>10 秒</string></property>
+           <item><property name="text"><string>5 秒</string></property></item><item><property name="text"><string>10 秒</string></property></item>
+           <item><property name="text"><string>30 秒</string></property></item><item><property name="text"><string>1 分钟</string></property></item>
+           <item><property name="text"><string>3 分钟</string></property></item><item><property name="text"><string>自定义</string></property></item></widget></item>
+          <item><widget class="QSpinBox" name="custom_sb"><property name="enabled"><bool>false</bool></property>
+           <property name="minimum"><number>1</number></property><property name="maximum"><number>3600</number></property>
+           <property name="value"><number>15</number></property></widget></item>
+          <item><widget class="QLabel" name="label_sec"><property name="text"><string>秒</string></property></widget></item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="rec_h4">
+          <item><widget class="QLabel" name="label_fmt"><property name="text"><string>保存格式:</string></property></widget></item>
+          <item><widget class="QComboBox" name="fmt_cb"><property name="currentText"><string>WAV (无损,推荐)</string></property>
+           <item><property name="text"><string>WAV (无损,推荐)</string></property></item><item><property name="text"><string>FLAC (无损压缩)</string></property></item>
+           <item><property name="text"><string>OGG/Vorbis</string></property></item><item><property name="text"><string>MP3 (需 lameenc)</string></property></item></widget></item>
+          <item><widget class="QLabel" name="label_name"><property name="text"><string>文件名:</string></property></widget></item>
+          <item><widget class="QLineEdit" name="name_le"><property name="placeholderText"><string>留空自动生成</string></property></widget></item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="rec_h_dir">
+          <item><widget class="QLabel" name="label_save_dir"><property name="text"><string>保存目录:</string></property></widget></item>
+          <item><widget class="QLineEdit" name="save_dir_le"><property name="readOnly"><bool>true</bool></property></widget></item>
+          <item><widget class="QPushButton" name="choose_dir_btn"><property name="text"><string>选择目录</string></property></widget></item>
+          <item><widget class="QPushButton" name="open_dir_btn"><property name="text"><string>打开目录</string></property></widget></item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="rec_h5">
+          <item><widget class="QPushButton" name="rec_btn"><property name="text"><string>● 开始录音</string></property>
+           <property name="styleSheet"><string>background:#2e7d32; color:white; font-weight:bold;</string></property></widget></item>
+          <item><widget class="QPushButton" name="stop_btn"><property name="text"><string>■ 停止</string></property>
+           <property name="enabled"><bool>false</bool></property></widget></item>
+          <item><widget class="QPushButton" name="play_btn"><property name="text"><string>▶ 试听</string></property>
+           <property name="enabled"><bool>false</bool></property></widget></item>
+          <item><widget class="QPushButton" name="save_btn"><property name="text"><string>💾 保存</string></property>
+           <property name="enabled"><bool>false</bool></property></widget></item>
+         </layout>
+        </item>
+        <item><widget class="QProgressBar" name="progress"><property name="textVisible"><bool>false</bool></property></widget></item>
+        <item><widget class="QWidget" name="canvas_placeholder" /></item>
+        <item><widget class="QLabel" name="player_label"><property name="text"><string>试听：</string></property></widget></item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_analysis">
+       <attribute name="title"><string>📊 单文件分析</string></attribute>
+       <layout class="QVBoxLayout" name="analysis_vlayout">
+        <item>
+         <layout class="QHBoxLayout" name="an_h1">
+          <item><widget class="QLabel" name="label_an_dir"><property name="text"><string>分析目录/文件:</string></property></widget></item>
+          <item><widget class="QLineEdit" name="an_dir_le"/></item>
+          <item><widget class="QPushButton" name="an_browse_btn"><property name="text"><string>浏览</string></property></widget></item>
+          <item><widget class="QPushButton" name="an_scan_btn"><property name="text"><string>扫描</string></property></widget></item>
+          <item><widget class="QPushButton" name="an_open_btn"><property name="text"><string>打开音频</string></property>
+           <property name="styleSheet"><string>background:#2e7d32; color:white;</string></property></widget></item>
+         </layout>
+        </item>
+        <item><widget class="QListWidget" name="an_list"><property name="selectionMode"><enum>QAbstractItemView::MultiSelection</enum></property></widget></item>
+        <item><widget class="QLabel" name="an_cur_label"><property name="text"><string>当前文件: 未选择</string></property></widget></item>
+        <item>
+         <widget class="QGroupBox" name="an_group">
+          <property name="title"><string>分析方法</string></property>
+          <layout class="QHBoxLayout" name="an_gv">
+           <item><widget class="QCheckBox" name="chk_time"><property name="text"><string>时域波形</string></property><property name="checked"><bool>true</bool></property></widget></item>
+           <item><widget class="QCheckBox" name="chk_freq"><property name="text"><string>频谱</string></property><property name="checked"><bool>true</bool></property></widget></item>
+           <item><widget class="QCheckBox" name="chk_spec"><property name="text"><string>语谱图</string></property><property name="checked"><bool>false</bool></property></widget></item>
+           <item><widget class="QCheckBox" name="chk_pitch"><property name="text"><string>基频</string></property><property name="checked"><bool>false</bool></property></widget></item>
+           <item><widget class="QCheckBox" name="chk_window"><property name="text"><string>窗函数对比</string></property><property name="checked"><bool>false</bool></property></widget></item>
+           <item><widget class="QCheckBox" name="chk_denoise"><property name="text"><string>降噪对比</string></property><property name="checked"><bool>false</bool></property></widget></item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="an_h2">
+          <item><widget class="QPushButton" name="an_run_btn"><property name="text"><string>运行分析</string></property>
+           <property name="styleSheet"><string>background:#1565c0; color:white;</string></property></widget></item>
+          <item><widget class="QPushButton" name="an_metrics_btn"><property name="text"><string>查看指标</string></property></widget></item>
+          <item><widget class="QLabel" name="label_an_sub"><property name="text"><string>放大查看子图:</string></property></widget></item>
+          <item><widget class="QComboBox" name="an_sub_cb"/></item>
+          <item><widget class="QPushButton" name="an_zoom_btn"><property name="text"><string>放大查看</string></property></widget></item>
+         </layout>
+        </item>
+        <item><widget class="QWidget" name="an_canvas_placeholder" /></item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_compare">
+       <attribute name="title"><string>🔍 多文件对比</string></attribute>
+       <layout class="QVBoxLayout" name="compare_vlayout">
+        <item>
+         <layout class="QHBoxLayout" name="cmp_h1">
+          <item><widget class="QLabel" name="label_cmp_dir"><property name="text"><string>对比目录/文件:</string></property></widget></item>
+          <item><widget class="QLineEdit" name="cmp_dir_le"/></item>
+          <item><widget class="QPushButton" name="cmp_browse_btn"><property name="text"><string>浏览</string></property></widget></item>
+          <item><widget class="QPushButton" name="cmp_scan_btn"><property name="text"><string>扫描</string></property></widget></item>
+          <item><widget class="QPushButton" name="cmp_open_btn"><property name="text"><string>打开音频</string></property>
+           <property name="styleSheet"><string>background:#2e7d32; color:white;</string></property></widget></item>
+         </layout>
+        </item>
+        <item><widget class="QListWidget" name="cmp_list"><property name="selectionMode"><enum>QAbstractItemView::MultiSelection</enum></property></widget></item>
+        <item><widget class="QLabel" name="cmp_cur_label"><property name="text"><string>已选文件: 0 个 (点击/双击列表项选择)</string></property></widget></item>
+        <item>
+         <layout class="QHBoxLayout" name="cmp_h2">
+          <item><widget class="QLabel" name="label_cmp_mode"><property name="text"><string>对比方式:</string></property></widget></item>
+          <item><widget class="QComboBox" name="cmp_mode_cb">
+           <item><property name="text"><string>波形叠加对比</string></property></item>
+           <item><property name="text"><string>频谱对比</string></property></item>
+           <item><property name="text"><string>指标对比表</string></property></item>
+           <item><property name="text"><string>相似度矩阵</string></property></item>
+          </widget></item>
+          <item><widget class="QPushButton" name="cmp_run_btn"><property name="text"><string>运行对比分析</string></property>
+           <property name="styleSheet"><string>background:#6a1b9a; color:white;</string></property></widget></item>
+          <item><widget class="QPushButton" name="cmp_metrics_btn"><property name="text"><string>查看指标对比</string></property></widget></item>
+         </layout>
+        </item>
+        <item><widget class="QWidget" name="cmp_canvas_placeholder" /></item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_viewer">
+       <attribute name="title"><string>📁 音频查看器</string></attribute>
+       <layout class="QVBoxLayout" name="viewer_vlayout">
+        <item>
+         <layout class="QHBoxLayout" name="vw_h1">
+          <item><widget class="QLabel" name="label_vw_file"><property name="text"><string>音频文件:</string></property></widget></item>
+          <item><widget class="QLineEdit" name="vw_file_le"/></item>
+          <item><widget class="QPushButton" name="vw_open_btn"><property name="text"><string>打开文件</string></property></widget></item>
+          <item><widget class="QPushButton" name="vw_export_btn"><property name="text"><string>导出结果</string></property></widget></item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="vw_h2">
+          <item><widget class="QLabel" name="label_vw_win"><property name="text"><string>窗函数:</string></property></widget></item>
+          <item><widget class="QComboBox" name="vw_win_cb">
+           <item><property name="text"><string>汉宁 (Hanning)</string></property></item>
+           <item><property name="text"><string>汉明 (Hamming)</string></property></item>
+           <item><property name="text"><string>布莱克曼 (Blackman)</string></property></item>
+           <item><property name="text"><string>矩形 (Rect)</string></property></item>
+          </widget></item>
+          <item><widget class="QLabel" name="label_vw_fft"><property name="text"><string>FFT点数:</string></property></widget></item>
+          <item><widget class="QComboBox" name="vw_fft_cb">
+           <item><property name="text"><string>1024</string></property></item>
+           <item><property name="text"><string>2048</string></property></item>
+           <item><property name="text"><string>4096</string></property></item>
+           <item><property name="text"><string>8192</string></property></item>
+           <item><property name="text"><string>自动</string></property></item>
+          </widget></item>
+          <item><widget class="QLabel" name="label_vw_mode"><property name="text"><string>绘图:</string></property></widget></item>
+          <item><widget class="QComboBox" name="vw_mode_cb">
+           <item><property name="text"><string>波形+频谱</string></property></item>
+           <item><property name="text"><string>仅波形</string></property></item>
+           <item><property name="text"><string>仅频谱</string></property></item>
+           <item><property name="text"><string>语谱图</string></property></item>
+          </widget></item>
+          <item><widget class="QCheckBox" name="vw_db_chk"><property name="text"><string>频谱 dB</string></property><property name="checked"><bool>true</bool></property></widget></item>
+          <item><widget class="QPushButton" name="vw_refresh_btn"><property name="text"><string>刷新绘图</string></property>
+           <property name="styleSheet"><string>background:#1565c0; color:white;</string></property></widget></item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QSplitter" name="vw_splitter">
+          <property name="orientation"><enum>Qt::Horizontal</enum></property>
+          <widget class="QGroupBox" name="vw_info_group">
+           <property name="title"><string>音频信息与指标</string></property>
+           <layout class="QVBoxLayout" name="vw_info_vlayout">
+            <item><widget class="QTableWidget" name="vw_info_table">
+             <property name="columnCount"><number>3</number></property>
+             <property name="editTriggers"><set>QAbstractItemView::NoEditTriggers</set></property>
+             <property name="selectionMode"><enum>QAbstractItemView::NoSelection</enum></property>
+            </widget></item>
+           </layout>
+          </widget>
+          <widget class="QGroupBox" name="vw_plot_group">
+           <property name="title"><string>波形与频谱</string></property>
+           <layout class="QVBoxLayout" name="vw_plot_vlayout">
+            <item><widget class="QWidget" name="vw_canvas_placeholder" /></item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="backend_h">
+      <item><widget class="QLabel" name="label_backend"><property name="text"><string>绘图引擎:</string></property></widget></item>
+      <item><widget class="QComboBox" name="backend_cb">
+       <item><property name="text"><string>matplotlib</string></property></item>
+       <item><property name="text"><string>pyqtgraph</string></property></item>
+      </widget></item>
+      <item><widget class="QPushButton" name="apply_backend_btn"><property name="text"><string>切换引擎</string></property></widget></item>
+      <item><spacer name="backend_spacer">
+       <property name="orientation"><enum>Qt::Horizontal</enum></property>
+       <property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property>
+      </spacer></item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="status">
+      <property name="text"><string>就绪</string></property>
+      <property name="styleSheet"><string>padding:4px; background:#222; color:#0f0; font-family:Consolas;</string></property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
