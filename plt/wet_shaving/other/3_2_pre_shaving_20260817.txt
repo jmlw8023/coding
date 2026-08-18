@@ -1,0 +1,126 @@
+ 
+ 
+ *exit standby-mode! 
+task_idle highWater:12
+*enter task_motor!
+*enter task_dyn_reg!
+adc_temp:2056, vref:1254 mV
+pwm output enable!
+bat:3996mV, curr:850mA, ntc:7736R,  RMP:12666, duty:650, vbemf:343, bat_level:96, rpm_step:-15, duty=652 
+bat:3996mV, curr:790mA, ntc:7725R,  RMP:12186, duty:650, vbemf:545, bat_level:96, rpm_step:-15, duty=652 
+bat:4004mV, curr:630mA, ntc:7735R,  RMP:11931, duty:580, vbemf:489, bat_level:96, rpm_step:0, duty=580 
+bat:4006mV, curr:570mA, ntc:7740R,  RMP:11931, duty:580, vbemf:536, bat_level:96, rpm_step:0, duty=580 
+bat:4006mV, curr:570mA, ntc:7740R,  RMP:11931, duty:572, vbemf:550, bat_level:96, rpm_step:0, duty=572 
+bat:4008mV, curr:530mA, ntc:7745R,  RMP:11931, duty:562, vbemf:560, bat_level:96, rpm_step:0, duty=562 
+bat:4010mV, curr:510mA, ntc:7750R,  RMP:11931, duty:556, vbemf:564, bat_level:96, rpm_step:0, duty=556 
+bat:4010mV, curr:510mA, ntc:7740R,  RMP:11931, duty:549, vbemf:556, bat_level:96, rpm_step:0, duty=549 
+bat:4010mV, curr:510mA, ntc:7740R,  RMP:11931, duty:545, vbemf:557, bat_level:96, rpm_step:0, duty=545 
+bat:4010mV, curr:490mA, ntc:7729R,  RMP:11931, duty:541, vbemf:572, bat_level:96, rpm_step:0, duty=541 
+bat:4010mV, curr:470mA, ntc:7729R,  RMP:11931, duty:535, vbemf:568, bat_level:96, rpm_step:0, duty=535 
+bat:4012mV, curr:470mA, ntc:7735R,  RMP:11931, duty:532, vbemf:581, bat_level:96, rpm_step:0, duty=532 
+bat:4010mV, curr:470mA, ntc:7729R,  RMP:11931, duty:529, vbemf:583, bat_level:96, rpm_step:0, duty=529 
+bat:4012mV, curr:450mA, ntc:7735R,  RMP:11931, duty:523, vbemf:584, bat_level:96, rpm_step:0, duty=523 
+bat:4012mV, curr:450mA, ntc:7735R,  RMP:11931, duty:523, vbemf:578, bat_level:96, rpm_step:0, duty=523 
+bat:4012mV, curr:450mA, ntc:7735R,  RMP:11931, duty:520, vbemf:584, bat_level:96, rpm_step:0, duty=520 
+bat:4012mV, curr:450mA, ntc:7735R,  RMP:11931, duty:516, vbemf:589, bat_level:96, rpm_step:0, duty=516 
+bat:4012mV, curr:450mA, ntc:7724R,  RMP:11931, duty:515, vbemf:570, bat_level:96, rpm_step:0, duty=515 
+motor_sta.is_control_duty_scan_freq = 0 remove restrict!
+
+bat:4012mV, curr:430mA, ntc:7724R,  RMP:11931, duty:512, vbemf:577, bat_level:96, rpm_step:0, duty=512 
+bat:4012mV, curr:430mA, ntc:7724R,  RMP:11916, duty:512, vbemf:573, bat_level:96, rpm_step:0, duty=512 
+bat:4010mV, curr:430mA, ntc:7719R,  RMP:11916, duty:512, vbemf:570, bat_level:96, rpm_step:0, duty=512 
+bat:4010mV, curr:430mA, ntc:7719R,  RMP:11916, duty:512, vbemf:574, bat_level:96, rpm_step:0, duty=512 
+bat:4012mV, curr:430mA, ntc:7714R,  RMP:11916, duty:512, vbemf:584, bat_level:96, rpm_step:0, duty=512 
+bat:4010mV, curr:430mA, ntc:7709R,  RMP:11916, duty:511, vbemf:589, bat_level:96, rpm_step:0, duty=511 
+bat:4010mV, curr:430mA, ntc:7709R,  RMP:11916, duty:511, vbemf:587, bat_level:96, rpm_step:0, duty=511 
+bat:4010mV, curr:410mA, ntc:7709R,  RMP:11916, duty:509, vbemf:584, bat_level:96, rpm_step:0, duty=509 
+bat:4010mV, curr:430mA, ntc:7709R,  RMP:11916, duty:509, vbemf:580, bat_level:96, rpm_step:0, duty=509 
+bat:4010mV, curr:430mA, ntc:7709R,  RMP:11916, duty:509, vbemf:585, bat_level:96, rpm_step:0, duty=509 
+bat:4010mV, curr:410mA, ntc:7709R,  RMP:11916, duty:507, vbemf:582, bat_level:96, rpm_step:0, duty=507 
+bat:4010mV, curr:410mA, ntc:7709R,  RMP:11916, duty:507, vbemf:582, bat_level:96, rpm_step:0, duty=507 
+bat:4010mV, curr:410mA, ntc:7698R,  RMP:11916, duty:507, vbemf:582, bat_level:96, rpm_step:0, duty=507 
+bat:4010mV, curr:410mA, ntc:7698R,  RMP:11916, duty:507, vbemf:582, bat_level:96, rpm_step:0, duty=507 
+bat:4010mV, curr:410mA, ntc:7698R,  RMP:11916, duty:507, vbemf:577, bat_level:96, rpm_step:0, duty=507 
+bat:4010mV, curr:410mA, ntc:7698R,  RMP:11916, duty:507, vbemf:577, bat_level:96, rpm_step:0, duty=507 
+bat:4010mV, curr:410mA, ntc:7698R,  RMP:11916, duty:507, vbemf:583, bat_level:96, rpm_step:0, duty=507 
+bat:4010mV, curr:410mA, ntc:7698R,  RMP:11916, duty:507, vbemf:579, bat_level:96, rpm_step:0, duty=507 
+bat:4010mV, curr:410mA, ntc:7698R,  RMP:11916, duty:507, vbemf:584, bat_level:96, rpm_step:0, duty=507 
+bat:4010mV, curr:410mA, ntc:7688R,  RMP:11916, duty:504, vbemf:584, bat_level:96, rpm_step:0, duty=504 
+bat:4010mV, curr:410mA, ntc:7688R,  RMP:11916, duty:504, vbemf:575, bat_level:96, rpm_step:0, duty=504 
+bat:4010mV, curr:410mA, ntc:7688R,  RMP:11916, duty:504, vbemf:581, bat_level:96, rpm_step:0, duty=504 
+bat:4010mV, curr:410mA, ntc:7677R,  RMP:11916, duty:504, vbemf:582, bat_level:96, rpm_step:0, duty=504 
+bat:4010mV, curr:410mA, ntc:7677R,  RMP:11916, duty:504, vbemf:584, bat_level:96, rpm_step:0, duty=504 
+bat:4010mV, curr:410mA, ntc:7677R,  RMP:11916, duty:504, vbemf:583, bat_level:96, rpm_step:0, duty=504 
+bat:4010mV, curr:410mA, ntc:7677R,  RMP:11916, duty:504, vbemf:583, bat_level:96, rpm_step:0, duty=504 
+bat:4010mV, curr:410mA, ntc:7677R,  RMP:11916, duty:504, vbemf:585, bat_level:96, rpm_step:0, duty=504 
+bat:4010mV, curr:410mA, ntc:7677R,  RMP:11916, duty:504, vbemf:585, bat_level:96, rpm_step:0, duty=504 
+bat:4010mV, curr:410mA, ntc:7667R,  RMP:11916, duty:504, vbemf:585, bat_level:96, rpm_step:0, duty=504 
+bat:4010mV, curr:410mA, ntc:7667R,  RMP:11916, duty:504, vbemf:591, bat_level:96, rpm_step:0, duty=504 
+bat:4010mV, curr:410mA, ntc:7667R,  RMP:11916, duty:502, vbemf:587, bat_level:96, rpm_step:0, duty=502 
+bat:4010mV, curr:410mA, ntc:7667R,  RMP:11916, duty:502, vbemf:586, bat_level:96, rpm_step:0, duty=502 
+bat:4010mV, curr:410mA, ntc:7667R,  RMP:11916, duty:502, vbemf:586, bat_level:96, rpm_step:0, duty=502 
+bat:4010mV, curr:410mA, ntc:7667R,  RMP:11916, duty:501, vbemf:579, bat_level:96, rpm_step:0, duty=501 
+bat:4010mV, curr:410mA, ntc:7667R,  RMP:11916, duty:501, vbemf:582, bat_level:96, rpm_step:0, duty=501 
+bat:4010mV, curr:410mA, ntc:7667R,  RMP:11916, duty:501, vbemf:580, bat_level:96, rpm_step:0, duty=501 
+bat:4010mV, curr:410mA, ntc:7657R,  RMP:11916, duty:501, vbemf:587, bat_level:96, rpm_step:0, duty=501 
+bat:4010mV, curr:410mA, ntc:7657R,  RMP:11916, duty:498, vbemf:584, bat_level:96, rpm_step:0, duty=498 
+bat:4008mV, curr:410mA, ntc:7641R,  RMP:11916, duty:498, vbemf:586, bat_level:96, rpm_step:0, duty=498 
+bat:4010mV, curr:410mA, ntc:7646R,  RMP:11916, duty:498, vbemf:586, bat_level:96, rpm_step:0, duty=498 
+bat:4010mV, curr:410mA, ntc:7646R,  RMP:11916, duty:498, vbemf:586, bat_level:96, rpm_step:0, duty=498 
+bat:4010mV, curr:410mA, ntc:7646R,  RMP:11916, duty:498, vbemf:586, bat_level:96, rpm_step:0, duty=498 
+bat:4008mV, curr:410mA, ntc:7641R,  RMP:11916, duty:498, vbemf:577, bat_level:96, rpm_step:0, duty=498 
+bat:4010mV, curr:410mA, ntc:7646R,  RMP:11916, duty:498, vbemf:578, bat_level:96, rpm_step:0, duty=498 
+bat:4010mV, curr:410mA, ntc:7646R,  RMP:11916, duty:498, vbemf:585, bat_level:96, rpm_step:0, duty=498 
+bat:4008mV, curr:410mA, ntc:7641R,  RMP:11916, duty:498, vbemf:590, bat_level:96, rpm_step:0, duty=498 
+bat:4008mV, curr:410mA, ntc:7631R,  RMP:11916, duty:497, vbemf:582, bat_level:96, rpm_step:0, duty=497 
+bat:4010mV, curr:410mA, ntc:7636R,  RMP:11916, duty:497, vbemf:586, bat_level:96, rpm_step:0, duty=497 
+bat:4008mV, curr:410mA, ntc:7631R,  RMP:11916, duty:497, vbemf:588, bat_level:96, rpm_step:0, duty=497 
+bat:4008mV, curr:410mA, ntc:7631R,  RMP:11916, duty:497, vbemf:590, bat_level:96, rpm_step:0, duty=497 
+bat:4008mV, curr:410mA, ntc:7631R,  RMP:11916, duty:497, vbemf:591, bat_level:96, rpm_step:0, duty=497 
+bat:4008mV, curr:410mA, ntc:7621R,  RMP:11916, duty:497, vbemf:587, bat_level:96, rpm_step:0, duty=497 
+bat:4008mV, curr:410mA, ntc:7621R,  RMP:11916, duty:497, vbemf:587, bat_level:96, rpm_step:0, duty=497 
+bat:4008mV, curr:410mA, ntc:7621R,  RMP:11916, duty:497, vbemf:590, bat_level:96, rpm_step:0, duty=497 
+bat:4008mV, curr:410mA, ntc:7621R,  RMP:11916, duty:497, vbemf:583, bat_level:96, rpm_step:0, duty=497 
+bat:4006mV, curr:410mA, ntc:7616R,  RMP:11916, duty:497, vbemf:586, bat_level:96, rpm_step:0, duty=497 
+bat:4008mV, curr:410mA, ntc:7611R,  RMP:11916, duty:497, vbemf:584, bat_level:96, rpm_step:0, duty=497 
+bat:4006mV, curr:410mA, ntc:7606R,  RMP:11916, duty:497, vbemf:589, bat_level:96, rpm_step:0, duty=497 
+bat:4006mV, curr:410mA, ntc:7606R,  RMP:11916, duty:497, vbemf:590, bat_level:96, rpm_step:0, duty=497 
+bat:4006mV, curr:410mA, ntc:7606R,  RMP:11916, duty:497, vbemf:590, bat_level:96, rpm_step:0, duty=497 
+bat:4006mV, curr:390mA, ntc:7606R,  RMP:11916, duty:495, vbemf:590, bat_level:96, rpm_step:0, duty=495 
+bat:4006mV, curr:390mA, ntc:7606R,  RMP:11916, duty:494, vbemf:587, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7606R,  RMP:11916, duty:494, vbemf:580, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7595R,  RMP:11916, duty:494, vbemf:570, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7595R,  RMP:11916, duty:494, vbemf:567, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:410mA, ntc:7595R,  RMP:11916, duty:494, vbemf:566, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:410mA, ntc:7595R,  RMP:11916, duty:494, vbemf:575, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:410mA, ntc:7595R,  RMP:11916, duty:494, vbemf:575, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7595R,  RMP:11916, duty:494, vbemf:579, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7585R,  RMP:11916, duty:494, vbemf:575, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7585R,  RMP:11916, duty:494, vbemf:580, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:410mA, ntc:7575R,  RMP:11916, duty:494, vbemf:580, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:410mA, ntc:7575R,  RMP:11916, duty:494, vbemf:582, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7575R,  RMP:11916, duty:494, vbemf:578, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7575R,  RMP:11916, duty:494, vbemf:578, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7575R,  RMP:11916, duty:494, vbemf:578, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7575R,  RMP:11916, duty:494, vbemf:580, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7575R,  RMP:11916, duty:494, vbemf:581, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7565R,  RMP:11916, duty:494, vbemf:581, bat_level:96, rpm_step:0, duty=494 
+bat:4004mV, curr:390mA, ntc:7560R,  RMP:11916, duty:494, vbemf:586, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7555R,  RMP:11916, duty:494, vbemf:586, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7555R,  RMP:11916, duty:494, vbemf:582, bat_level:96, rpm_step:0, duty=494 
+bat:4006mV, curr:390mA, ntc:7555R,  RMP:11916, duty:493, vbemf:580, bat_level:96, rpm_step:0, duty=493 
+bat:4006mV, curr:390mA, ntc:7555R,  RMP:11916, duty:493, vbemf:579, bat_level:96, rpm_step:0, duty=493 
+bat:4006mV, curr:390mA, ntc:7555R,  RMP:11916, duty:493, vbemf:578, bat_level:96, rpm_step:0, duty=493 
+bat:4004mV, curr:390mA, ntc:7550R,  RMP:11916, duty:493, vbemf:581, bat_level:96, rpm_step:0, duty=493 
+bat:4006mV, curr:390mA, ntc:7545R,  RMP:11916, duty:493, vbemf:576, bat_level:96, rpm_step:0, duty=493 
+bat:4006mV, curr:390mA, ntc:7545R,  RMP:11916, duty:493, vbemf:577, bat_level:96, rpm_step:0, duty=493 
+bat:4006mV, curr:390mA, ntc:7545R,  RMP:11916, duty:493, vbemf:575, bat_level:96, rpm_step:0, duty=493 
+bat:4006mV, curr:390mA, ntc:7545R,  RMP:11916, duty:493, vbemf:577, bat_level:96, rpm_step:0, duty=493 
+bat:4006mV, curr:410mA, ntc:7535R,  RMP:11916, duty:493, vbemf:565, bat_level:96, rpm_step:0, duty=493 
+bat:4006mV, curr:410mA, ntc:7535R,  RMP:11916, duty:493, vbemf:568, bat_level:96, rpm_step:0, duty=493 
+pwm output disable!
+*exit task_dyn_reg!
+*motor stop, is_use_emergency_flag:0 
+ *exit task_motor!
+ENTER_STDBY_DELAY!!
+enter standby-mode! 
